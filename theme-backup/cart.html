@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина — Wildberries Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .cart-page {
+            padding: 40px 0 100px;
+        }
+
+        .cart-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 32px;
+            color: var(--white);
+        }
+
+        .cart-container {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* Cart Items Section */
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .cart-header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .select-all {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .cart-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 24px;
+            display: flex;
+            gap: 24px;
+            transition: transform 0.2s;
+        }
+
+        .cart-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .cart-card__img {
+            width: 100px;
+            height: 130px;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .cart-card__img img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .cart-card__info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .cart-card__brand {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-purple);
+            text-transform: uppercase;
+        }
+
+        .cart-card__name {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--white);
+            line-height: 1.4;
+        }
+
+        .cart-card__status {
+            font-size: 13px;
+            color: #00ca00;
+        }
+
+        .cart-card__controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 12px;
+        }
+
+        .quantity-btn {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 20px;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .quantity-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .cart-card__price-col {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .current-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ff3b30;
+        }
+
+        .old-price {
+            font-size: 14px;
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        /* Summary Sidebar */
+        .cart-summary {
+            background: #1c1c1e;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 28px;
+            padding: 30px;
+            position: sticky;
+            top: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .summary-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .summary-row.total {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--white);
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .checkout-btn {
+            background: var(--primary-purple);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 18px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .checkout-btn:hover {
+            background: #e012be;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(203, 17, 171, 0.4);
+        }
+
+        @media (max-width: 992px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+            .cart-summary {
+                position: static;
+                max-width: 500px;
+                margin: 20px auto 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cart-card {
+                padding: 16px;
+                gap: 16px;
+            }
+            .cart-card__img {
+                width: 80px;
+                height: 100px;
+            }
+            .cart-card__name {
+                font-size: 14px;
+            }
+            .current-price {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar (Shared) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar"></aside>
+
+    <!-- Header (Shared) -->
+    <header class="header">
+        <div class="container">
+            <div class="header__main-inner">
+                <div class="header__logo"><a href="index.html" class="logo-wb">wb</a></div>
+                <div class="header__search">
+                    <input type="text" placeholder="Найти на Wildberries">
+                </div>
+                <div class="header__actions">
+                    <a href="login.html" class="header__action"><img src="https://img.icons8.com/ios/50/ffffff/user.png" alt="user"><span>Войти</span></a>
+                    <a href="cart.html" class="header__action"><img src="https://img.icons8.com/ios/50/ffffff/shopping-cart--v1.png" alt="cart"><span>Корзина</span></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="cart-page">
+        <div class="container">
+            <h1 class="cart-title">Корзина</h1>
+            
+            <div class="cart-container">
+                <div class="cart-items">
+                    <div class="cart-header-actions">
+                        <label class="select-all">
+                            <input type="checkbox" checked>
+                            <span>Выбрать все</span>
+                        </label>
+                        <button style="background: none; border: none; color: #ff3b30; cursor: pointer;">Удалить выбранные</button>
+                    </div>
+
+                    <!-- Item 1 -->
+                    <article class="cart-card">
+                        <div class="cart-card__img">
+                            <img src="product_winter_hat_1767023941418.png" alt="hat">
+                        </div>
+                        <div class="cart-card__info">
+                            <span class="cart-card__brand">AROMATHEQUE</span>
+                            <h3 class="cart-card__name">Диффузор для дома с палочками набор хлопок, персик</h3>
+                            <p class="cart-card__status">Осталось 5 шт.</p>
+                            <div class="cart-card__controls">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn">-</button>
+                                    <span>1</span>
+                                    <button class="quantity-btn">+</button>
+                                </div>
+                                <div class="cart-card__price-col">
+                                    <span class="current-price">539 ₽</span>
+                                    <span class="old-price">2 329 ₽</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Item 2 -->
+                    <article class="cart-card">
+                        <div class="cart-card__img">
+                            <img src="product_jewelry_ring_1767023925787.png" alt="ring">
+                        </div>
+                        <div class="cart-card__info">
+                            <span class="cart-card__brand">Sokolov</span>
+                            <h3 class="cart-card__name">Кольцо из серебра с камнями</h3>
+                            <p class="cart-card__status">В наличии</p>
+                            <div class="cart-card__controls">
+                                <div class="quantity-control">
+                                    <button class="quantity-btn">-</button>
+                                    <span>2</span>
+                                    <button class="quantity-btn">+</button>
+                                </div>
+                                <div class="cart-card__price-col">
+                                    <span class="current-price">3 450 ₽</span>
+                                    <span class="old-price">5 100 ₽</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <aside class="cart-summary">
+                    <h2 class="summary-title">Итого</h2>
+                    <div class="summary-row">
+                        <span>Товары (3)</span>
+                        <span>7 429 ₽</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Скидка</span>
+                        <span style="color: #ff3b30;">-3 440 ₽</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Доставка</span>
+                        <span>Бесплатно</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>К оплате</span>
+                        <span>3 989 ₽</span>
+                    </div>
+                    <button class="checkout-btn">Заказать</button>
+                    <p style="font-size: 13px; color: var(--text-muted); text-align: center;">Дата доставки: завтра</p>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="script.js"></script>
+    <script>
+        // Inline cart debugging
+        console.log('Cart page loaded');
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded for cart');
+            
+            const cartCards = document.querySelectorAll('.cart-card');
+            console.log('Found cart cards:', cartCards.length);
+            
+            cartCards.forEach((card, index) => {
+                const buttons = card.querySelectorAll('.quantity-btn');
+                const quantitySpan = card.querySelector('.quantity-control span');
+                const priceEl = card.querySelector('.current-price');
+                const oldPriceEl = card.querySelector('.old-price');
+                
+                console.log(`Card ${index}:`, {
+                    buttons: buttons.length,
+                    quantity: quantitySpan?.textContent,
+                    price: priceEl?.textContent,
+                    oldPrice: oldPriceEl?.textContent
+                });
+                
+                if (buttons.length === 2) {
+                    const minusBtn = buttons[0];
+                    const plusBtn = buttons[1];
+                    
+                    minusBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        console.log('Minus clicked for card', index);
+                        let qty = parseInt(quantitySpan.textContent);
+                        if (qty > 1) {
+                            qty--;
+                            quantitySpan.textContent = qty;
+                            console.log('New quantity:', qty);
+                        }
+                    });
+                    
+                    plusBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        console.log('Plus clicked for card', index);
+                        let qty = parseInt(quantitySpan.textContent);
+                        qty++;
+                        quantitySpan.textContent = qty;
+                        console.log('New quantity:', qty);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

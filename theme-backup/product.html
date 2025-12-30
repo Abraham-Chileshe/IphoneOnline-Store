@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Диффузор для дома - AROMATHEQUE — Wildberries Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar (Shared with index.html) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <aside class="sidebar" id="sidebar">
+        <!-- ... sidebar content remains same ... -->
+        <div class="sidebar__header">
+            <button class="sidebar__close" id="sidebarClose">
+                <img src="https://img.icons8.com/ios/50/ffffff/multiply.png" alt="close">
+            </button>
+        </div>
+        <nav class="sidebar__nav">
+            <ul class="sidebar__list">
+                <li class="sidebar__item sidebar__item--sale"><a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/percentage.png" alt="sale"> РАСПРОДАЖА</a></li>
+                <!-- Other items... -->
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Header (Shared with index.html) -->
+    <header class="header">
+        <!-- Top Nav -->
+        <div class="header__top">
+            <div class="container">
+                <div class="header__top-inner">
+                    <div class="header__location"><img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="location" class="icon"> <span>Лусака</span></div>
+                    <nav class="header__top-nav">
+                        <a href="index.html">Главная</a>
+                        <a href="#">Дом</a>
+                        <a href="#">Парфюмерия для дома</a>
+                        <a href="#">AROMATHEQUE</a>
+                    </nav>
+                    <div class="header__top-right">
+                        <div class="cashback">КЕШБЭК <span>+</span></div>
+                        <div class="currency"><img src="https://img.icons8.com/color/48/russian-ruble.png" alt="ruble" class="icon"> <span>RUB</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Header Content -->
+        <div class="header__main">
+            <div class="container">
+                <div class="header__main-inner">
+                    <div class="header__logo"><a href="index.html" class="logo-wb">wb</a></div>
+                    <button class="header__burger" id="desktopBurger"><span></span><span></span><span></span></button>
+                    <div class="header__search">
+                        <input type="text" placeholder="Найти на Wildberries">
+                        <button class="header__search-photo"><img src="https://img.icons8.com/ios/50/999999/camera.png" alt="photo"></button>
+                    </div>
+                    <div class="header__actions">
+                        <div class="header__action"><img src="https://img.icons8.com/ios/50/ffffff/marker.png" alt="addresses"><span>Адреса</span></div>
+                        <div class="header__action"><img src="https://img.icons8.com/ios/50/ffffff/user.png" alt="login"><span>Войти</span></div>
+                        <div class="header__action"><img src="https://img.icons8.com/ios/50/ffffff/shopping-cart--v1.png" alt="cart"><span>Корзина</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="product-page">
+        <div class="container">
+            <!-- Breadcrumbs -->
+            <nav class="breadcrumbs">
+                <a href="index.html">Главная</a> / <a href="#">Дом</a> / <a href="#">Парфюмерия для дома</a> / <a href="#">AROMATHEQUE</a>
+            </nav>
+
+            <div class="product-content">
+                <!-- Gallery Section -->
+                <div class="product-gallery">
+                    <div class="gallery-thumbs">
+                        <div class="thumb active"><img src="product_winter_hat_1767023941418.png" alt="thumb 1"></div>
+                        <div class="thumb"><img src="product_jewelry_ring_1767023925787.png" alt="thumb 2"></div>
+                        <div class="thumb"><img src="uploaded_image_1767023847148.png" alt="thumb 3"></div>
+                        <div class="thumb"><img src="product_winter_hat_1767023941418.png" alt="thumb 4"></div>
+                    </div>
+                    <div class="gallery-main">
+                        <span class="badge badge--ny gallery-badge">НГ НА ВБ</span>
+                        <img id="mainImage" src="product_winter_hat_1767023941418.png" alt="Main product image">
+                        <div class="gallery-actions">
+                            <button class="gallery-action-btn"><img src="https://img.icons8.com/material-outlined/44/ffffff/like--v1.png" alt="like"></button>
+                            <button class="gallery-action-btn"><img src="https://img.icons8.com/material-outlined/44/ffffff/share.png" alt="share"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Section -->
+                <div class="product-info">
+                    <div class="info-header">
+                        <span class="brand-tag">AROMATHEQUE</span>
+                        <h1 class="product-title">Диффузор для дома с палочками набор</h1>
+                        <div class="product-rating">
+                            <span class="star">★</span> 4.9 · 12 535 оценок · <span class="questions">234 вопроса</span>
+                        </div>
+                    </div>
+
+                    <div class="variants-section">
+                        <p class="variants-label">хлопок, персик, вербена</p>
+                        <div class="variants-grid">
+                            <div class="variant active"><img src="product_winter_hat_1767023941418.png" alt="v1"></div>
+                            <div class="variant"><img src="product_winter_hat_1767023941418.png" alt="v2"></div>
+                            <div class="variant"><img src="product_winter_hat_1767023941418.png" alt="v3"></div>
+                            <div class="variant"><img src="product_winter_hat_1767023941418.png" alt="v4"></div>
+                        </div>
+                    </div>
+
+                    <div class="specs-brief">
+                        <div class="spec-row"><span>Артикул</span> <span>370406489 <img src="https://img.icons8.com/ios/16/a0a0a0/copy.png" alt="copy"></span></div>
+                        <div class="spec-row"><span>Объем товара</span> <span>150 мл</span></div>
+                        <div class="spec-row"><span>Срок годности</span> <span>3 года</span></div>
+                        <div class="spec-row"><span>Аромат</span> <span>хлопок бергамот; персик жасмин; вербена</span></div>
+                        <div class="spec-row"><span>Страна производства</span> <span>Россия</span></div>
+                    </div>
+
+                    <button class="toggle-specs">Характеристики и описание</button>
+                </div>
+
+                <!-- Purchase Box -->
+                <div class="purchase-box">
+                    <div class="price-section">
+                        <div class="main-price">539 ₽ <span class="original-price">550 ₽</span> <span class="discount-label">2 329 ₽</span></div>
+                        <div class="wallet-promo">с WB Кошельком</div>
+                    </div>
+                    
+                    <div class="purchase-actions">
+                        <button class="btn btn-primary">Добавить в корзину</button>
+                        <button class="btn btn-secondary">Купить сейчас</button>
+                    </div>
+
+                    <div class="delivery-info">
+                        <div class="delivery-row">
+                            <img src="https://img.icons8.com/ios/24/ffffff/box.png" alt="box">
+                            <span>Завтра, <b>склад WB</b></span>
+                        </div>
+                        <div class="delivery-row">
+                            <img src="https://img.icons8.com/ios-filled/24/ffffff/marker.png" alt="marker">
+                            <span>BLOOM & WAX <span class="seller-rating">★ 4.8</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <!-- ... footer content ... -->
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
