@@ -8,22 +8,12 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use Illuminate\Support\Facades\Auth;
 
+use Livewire\Attributes\Url;
+
 class ProductList extends Component
 {
+    #[Url]
     public $search = '';
-
-    protected $listeners = ['search-updated' => 'updateSearch'];
-
-    public function mount()
-    {
-        // Handle search query from URL redirection
-        $this->search = request()->query('search', '');
-    }
-
-    public function updateSearch($query)
-    {
-        $this->search = $query;
-    }
 
     public function render()
     {

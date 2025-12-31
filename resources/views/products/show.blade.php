@@ -23,7 +23,9 @@
                         @endif
                         <img id="mainImage" src="{{ $product->image }}" alt="{{ $product->name }}">
                         <div class="gallery-actions">
-                            <button class="gallery-action-btn"><img src="https://img.icons8.com/material-outlined/44/ffffff/like--v1.png" alt="like"></button>
+                            @auth
+                                <button class="gallery-action-btn"><img src="https://img.icons8.com/material-outlined/44/ffffff/like--v1.png" alt="like"></button>
+                            @endauth
                             <button class="gallery-action-btn"><img src="https://img.icons8.com/material-outlined/44/ffffff/share.png" alt="share"></button>
                         </div>
                     </div>
@@ -73,14 +75,24 @@
                     </div>
                     
                     <div class="purchase-actions">
-                        <button class="btn btn-primary" id="addToCartBtn" onclick="sendAddToCart({{ $product->id }})">Add to Cart</button>
-                        <button class="btn btn-secondary">Buy Now</button>
+                        @auth
+                            <button class="btn btn-primary" id="addToCartBtn" onclick="sendAddToCart({{ $product->id }})">Add to Cart</button>
+                            <button class="btn btn-secondary">Buy Now</button>
+                        @endauth
+                        @guest
+                            <button class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'">Contact</button>
+                        @endguest
                     </div>
 
                     <div class="delivery-info">
                         <div class="delivery-row">
                             <img src="https://img.icons8.com/ios/24/ffffff/box.png" alt="box">
-                            <span>Delivery: <b>Tomorrow</b></span>
+                            @auth
+                                <span>Delivery: <b>Tomorrow</b></span>
+                            @endauth
+                            @guest
+                                <span>Delivery: <b>Contact</b></span>
+                            @endguest
                         </div>
                         <div class="delivery-row">
                             <img src="https://img.icons8.com/ios-filled/24/ffffff/marker.png" alt="marker">

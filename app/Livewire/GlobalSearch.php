@@ -3,9 +3,11 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\Attributes\Url;
 
 class GlobalSearch extends Component
 {
+    #[Url]
     public $search = '';
     public $layout = 'desktop';
     public $suggestions = [];
@@ -34,9 +36,7 @@ class GlobalSearch extends Component
         $this->search = $query;
         $this->suggestions = [];
 
-        if (request()->routeIs('home')) {
-            $this->dispatch('search-updated', query: $query);
-        } else {
+        if (!request()->routeIs('home')) {
             return redirect()->route('home', ['search' => $query]);
         }
     }

@@ -1,18 +1,21 @@
 @if($layout === 'desktop')
-    <div class="header__search-wrapper" style="position: relative;" x-data="{ open: true }" @click.away="open = false; $wire.clearSuggestions()">
+    <div class="header__search-wrapper" x-data="{ open: false }" @click.away="open = false">
         <div class="header__search">
             <input type="text" 
                    wire:model.live.debounce.300ms="search" 
                    wire:keydown.enter="performSearch"
                    @focus="open = true"
+                   @input="open = true"
                    placeholder="Search products...">
             <button class="header__search-btn" wire:click="performSearch">
                 <img src="https://img.icons8.com/ios/24/000000/search--v1.png" alt="search">
             </button>
         </div>
 
-        @if(!empty($suggestions))
-            <div class="search-suggestions" x-show="open">
+        @if(count($suggestions) > 0)
+            <div class="search-suggestions" 
+                 x-show="open"
+                 x-transition>
                 <div class="suggestions-header">Quick Results</div>
                 <ul class="suggestions-list">
                     @foreach($suggestions as $suggestion)
@@ -27,18 +30,21 @@
         @endif
     </div>
 @else
-    <div class="header-mobile__search-wrapper" style="position: relative;" x-data="{ open: true }" @click.away="open = false; $wire.clearSuggestions()">
+    <div class="header-mobile__search-wrapper" x-data="{ open: false }" @click.away="open = false">
         <div class="header-mobile__search">
             <input type="text" 
                    wire:model.live.debounce.300ms="search" 
                    wire:keydown.enter="performSearch"
                    @focus="open = true"
+                   @input="open = true"
                    placeholder="Search products...">
             <img src="https://img.icons8.com/ios/50/999999/camera.png" alt="photo" class="search-camera">
         </div>
 
-        @if(!empty($suggestions))
-            <div class="search-suggestions search-suggestions--mobile" x-show="open">
+        @if(count($suggestions) > 0)
+            <div class="search-suggestions search-suggestions--mobile" 
+                 x-show="open"
+                 x-transition>
                 <ul class="suggestions-list">
                     @foreach($suggestions as $suggestion)
                         <li wire:click="performSearch('{{ $suggestion['name'] }}')">

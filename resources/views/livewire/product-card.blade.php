@@ -2,13 +2,15 @@
     <a href="{{ route('products.show', $product->id) }}">
         <div class="product-card__img-wrapper">
             <img src="{{ $product->image }}" alt="{{ $product->name }}" class="product-card__img">
-            <button class="product-card__wishlist {{ $isInWishlist ? 'product-card__wishlist--active' : '' }}" wire:click.prevent="toggleWishlist">
-                @if($isInWishlist)
-                    <img src="https://img.icons8.com/material-rounded/44/ff3b30/like.png" alt="wishlist">
-                @else
-                    <img src="https://img.icons8.com/material-outlined/44/000000/like--v1.png" alt="wishlist">
-                @endif
-            </button>
+            @auth
+                <button class="product-card__wishlist {{ $isInWishlist ? 'product-card__wishlist--active' : '' }}" wire:click.prevent="toggleWishlist">
+                    @if($isInWishlist)
+                        <img src="https://img.icons8.com/material-rounded/44/ff3b30/like.png" alt="wishlist">
+                    @else
+                        <img src="https://img.icons8.com/material-outlined/44/000000/like--v1.png" alt="wishlist">
+                    @endif
+                </button>
+            @endauth
 
             <div class="product-card__badges">
                 @if($product->discount_percentage > 0)
@@ -37,23 +39,31 @@
                 <span class="star">★</span> {{ $product->rating }} · {{ $product->reviews_count }} reviews
             </div>
 
-            @if($product->stock <= 0)
-                <button class="product-card__buy-btn product-card__buy-btn--unavailable" disabled>
-                    Unavailable
+            @auth
+                @if($product->stock <= 0)
+                    <button class="product-card__buy-btn product-card__buy-btn--unavailable" disabled>
+                        Unavailable
+                    </button>
+                @elseif($isAdded)
+                    <button class="product-card__buy-btn" disabled>
+                        Added to Cart
+                    </button>
+                @else
+                    <button class="product-card__buy-btn" wire:click.prevent="addToCart" wire:loading.attr="disabled" wire:target="addToCart">
+                        <span wire:loading.remove wire:target="addToCart">
+                            <img src="https://img.icons8.com/ios-filled/50/ffffff/shopping-cart.png" alt="cart">
+                            Tomorrow
+                        </span>
+                        <span wire:loading wire:target="addToCart">Adding...</span>
+                    </button>
+                @endif
+            @endauth
+
+            @guest
+                <button class="product-card__buy-btn" onclick="event.preventDefault(); window.location.href='{{ route('login') }}'">
+                    Contact
                 </button>
-            @elseif($isAdded)
-                <button class="product-card__buy-btn" disabled>
-                    Added to Cart
-                </button>
-            @else
-                <button class="product-card__buy-btn" wire:click.prevent="addToCart" wire:loading.attr="disabled" wire:target="addToCart">
-                    <span wire:loading.remove wire:target="addToCart">
-                        <img src="https://img.icons8.com/ios-filled/50/ffffff/shopping-cart.png" alt="cart">
-                        Tomorrow
-                    </span>
-                    <span wire:loading wire:target="addToCart">Adding...</span>
-                </button>
-            @endif
+            @endguest
 
         </div>
     </a>
