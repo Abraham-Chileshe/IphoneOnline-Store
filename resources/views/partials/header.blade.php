@@ -8,9 +8,9 @@
                     <span>Lusaka</span>
                 </div>
                 <nav class="header__top-nav">
-                    <a href="{{ route('home') }}">Home</a>
+                    {{-- <a href="{{ route('home') }}">Home</a>
                     <a href="#">iPhones</a>
-                    <a href="#">Accessories</a>
+                    <a href="#">Accessories</a> --}}
                 </nav>
                 <div class="header__top-right">
                     @auth

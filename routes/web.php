@@ -33,5 +33,22 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
+// Admin Routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', App\Livewire\Admin\Dashboard::class)->name('dashboard');
+    
+    // Products
+    Route::get('/products', App\Livewire\Admin\Products\Index::class)->name('products.index');
+    Route::get('/products/create', App\Livewire\Admin\Products\Create::class)->name('products.create');
+    Route::get('/products/{id}/edit', App\Livewire\Admin\Products\Edit::class)->name('products.edit');
+
+    // Orders
+    Route::get('/orders', App\Livewire\Admin\Orders\Index::class)->name('orders.index');
+    Route::get('/orders/{id}', App\Livewire\Admin\Orders\Detail::class)->name('orders.detail');
+
+    // Customers
+    Route::get('/customers', App\Livewire\Admin\Customers\Index::class)->name('customers.index');
+});
+
 // Auth routes will be added here after installing Laravel Breeze
 // require __DIR__.'/auth.php';

@@ -1,7 +1,7 @@
 <article class="product-card reveal" wire:ignore.self>
     <a href="{{ route('products.show', $product->id) }}">
         <div class="product-card__img-wrapper">
-            <img src="{{ $product->image }}" alt="{{ $product->name }}" class="product-card__img">
+            <img src="{{ asset($product->image) }}" alt="{{ $product->name }}" class="product-card__img">
             @auth
                 <button class="product-card__wishlist {{ $isInWishlist ? 'product-card__wishlist--active' : '' }}" wire:click.prevent="toggleWishlist">
                     @if($isInWishlist)
@@ -52,7 +52,7 @@
                     <button class="product-card__buy-btn" wire:click.prevent="addToCart" wire:loading.attr="disabled" wire:target="addToCart">
                         <span wire:loading.remove wire:target="addToCart">
                             <img src="https://img.icons8.com/ios-filled/50/ffffff/shopping-cart.png" alt="cart">
-                            Tomorrow
+                            Add to Cart
                         </span>
                         <span wire:loading wire:target="addToCart">Adding...</span>
                     </button>
