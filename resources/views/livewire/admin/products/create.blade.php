@@ -59,6 +59,29 @@
                  @error('description') <span style="color: #ff3b30; font-size: 12px;">{{ $message }}</span> @enderror
             </div>
 
+            <!-- Badge Settings -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 24px;">
+                <!-- Badge Text -->
+                <div>
+                    <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">Badge Text (Optional)</label>
+                    <input type="text" wire:model="badge_text" placeholder="e.g. GOOD PRICE, NEW, SALE" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--admin-border); color: white; padding: 10px 12px; border-radius: 8px;">
+                    <small style="color: var(--text-muted); font-size: 11px;">Leave empty for no badge</small>
+                    @error('badge_text') <span style="color: #ff3b30; font-size: 12px;">{{ $message }}</span> @enderror
+                </div>
+                <!-- Badge Type -->
+                <div>
+                    <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">Badge Style</label>
+                    <select wire:model="badge_type" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--admin-border); color: white; padding: 10px 12px; border-radius: 8px;">
+                        <option value="price">Price (Green)</option>
+                        <option value="discount">Discount (Red)</option>
+                        <option value="new">New (Blue)</option>
+                        <option value="sale">Sale (Orange)</option>
+                        <option value="hot">Hot (Pink)</option>
+                    </select>
+                    @error('badge_type') <span style="color: #ff3b30; font-size: 12px;">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
             <!-- Image Upload Section -->
             <div style="margin-bottom: 32px;">
                 <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">Product Images</label>

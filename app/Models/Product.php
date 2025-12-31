@@ -10,7 +10,8 @@ class Product extends Model
     use HasFactory;
     protected $fillable = [
         'name', 'brand', 'description', 'price', 'old_price', 
-        'image', 'image_2', 'image_3', 'image_4', 'stock', 'category', 'rating', 'reviews_count', 'is_active'
+        'image', 'image_2', 'image_3', 'image_4', 'stock', 'category', 'rating', 'reviews_count', 'is_active',
+        'badge_text', 'badge_type'
     ];
 
     protected $casts = [
@@ -27,10 +28,10 @@ class Product extends Model
         }
         return 0;
     }
-
+    
     public function getIsGoodPriceAttribute()
     {
-        return $this->discount_percentage >= 10;
+        return $this->badge_text && strtoupper($this->badge_text) === 'GOOD PRICE';
     }
 
     public function wishlists()

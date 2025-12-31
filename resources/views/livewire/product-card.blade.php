@@ -16,9 +16,12 @@
                 @if($product->discount_percentage > 0)
                     <span class="badge badge--discount">-{{ $product->discount_percentage }}%</span>
                 @endif
-                @if($product->is_good_price)
-                    <div class="badge badge--price">
-                        <img src="https://img.icons8.com/ios-filled/50/ffffff/thumb-up--v1.png" alt="thumb"> GOOD PRICE
+                @if($product->badge_text)
+                    <div class="badge badge--{{ $product->badge_type ?? 'price' }}">
+                        @if(strtoupper($product->badge_text) === 'GOOD PRICE')
+                            <img src="https://img.icons8.com/ios-filled/50/ffffff/thumb-up--v1.png" alt="thumb">
+                        @endif
+                        {{ strtoupper($product->badge_text) }}
                     </div>
                 @endif
             </div>
