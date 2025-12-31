@@ -101,6 +101,11 @@
                     </div>
                 </div>
             </div>
+            
+            {{-- Reviews Section --}}
+            <div style="margin-top: 60px;">
+                <livewire:product-reviews :productId="$product->id" />
+            </div>
         </div>
 @endsection
 
