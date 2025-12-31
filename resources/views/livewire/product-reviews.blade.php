@@ -446,6 +446,41 @@
     display: flex;
     justify-content: center;
 }
+
+/* Light mode support */
+[data-theme="light"] .reviews-section {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .review-form-container,
+[data-theme="light"] .review-item {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .form-input,
+[data-theme="light"] .form-textarea {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .bar-container {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .alert-info {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+[data-theme="light"] .alert-success {
+    background: rgba(34, 197, 94, 0.15);
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+[data-theme="light"] .alert-error {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.3);
+}
 </style>
 @endpush
 </div>
