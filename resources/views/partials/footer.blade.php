@@ -1,38 +1,10 @@
 <!-- Footer -->
 <footer class="footer">
     <div class="container">
-        <div class="footer__inner">
-            <div class="footer__col">
-                <h4>iPhone Lineup</h4>
-                <ul>
-                    <li><a href="#">iPhone 15 Pro</a></li>
-                    <li><a href="#">iPhone 15</a></li>
-                    <li><a href="#">iPhone 14</a></li>
-                    <li><a href="#">iPhone 13</a></li>
-                </ul>
-            </div>
-            <div class="footer__col">
-                <h4>Apple Services</h4>
-                <ul>
-                    <li><a href="#">Apple Music</a></li>
-                    <li><a href="#">Apple TV+</a></li>
-                    <li><a href="#">iCloud</a></li>
-                    <li><a href="#">Apple Arcade</a></li>
-                </ul>
-            </div>
-            <div class="footer__col">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="#">Help & Repair</a></li>
-                    <li><a href="#">Warranty</a></li>
-                    <li><a href="#">Order Status</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="footer__col">
-                <h4>About Us</h4>
-                <p>© 2025 iPhone Store. All rights reserved.</p>
-            </div>
+        <div style="display: flex; justify-content: center; align-items: center; padding: 30px 0;">
+            <p style="margin: 0; color: var(--text-muted); font-size: 14px; text-align: center;">
+                © {{ date('Y') }} iPhone Store. All rights reserved. Developed by Chileshe.
+            </p>
         </div>
     </div>
 </footer>

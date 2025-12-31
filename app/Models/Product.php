@@ -62,4 +62,30 @@ class Product extends Model
     {
         return $this->reviews()->count();
     }
+    
+    // Accessor to get real-time rating from reviews
+    public function getRatingAttribute($value)
+    {
+        // If reviews are already loaded (eager loading), use them
+        if ($this->relationLoaded('reviews')) {
+            $avgRating = $this->reviews->avg('rating');
+            return $avgRating ? round($avgRating, 1) : 0;
+        }
+        
+        // Otherwise query the database
+        $avgRating = $this->reviews()->avg('rating');
+        return $avgRating ? round($avgRating, 1) : 0;
+    }
+    
+    // Accessor to get real-time review count
+    public function getReviewsCountAttribute($value)
+    {
+        // If reviews are already loaded (eager loading), use them
+        if ($this->relationLoaded('reviews')) {
+            return $this->reviews->count();
+        }
+        
+        // Otherwise query the database
+        return $this->reviews()->count();
+    }
 }

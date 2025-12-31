@@ -18,7 +18,8 @@ class ProductList extends Component
     public function render()
     {
         try {
-            $query = Product::where('is_active', true)
+            $query = Product::with('reviews')
+                ->where('is_active', true)
                 ->where('stock', '>', 0);
 
             if (!empty($this->search)) {
