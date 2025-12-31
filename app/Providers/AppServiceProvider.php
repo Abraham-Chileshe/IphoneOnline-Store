@@ -22,5 +22,10 @@ class AppServiceProvider extends ServiceProvider
     {
         // Fix for MySQL "Specified key was too long" error
         Schema::defaultStringLength(191);
+        
+        // Force HTTPS for Gitpod URLs
+        if (str_contains(config('app.url'), 'gitpod.dev')) {
+            \Illuminate\Support\Facades\URL::forceScheme('https');
+        }
     }
 }

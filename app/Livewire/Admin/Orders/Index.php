@@ -12,7 +12,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.admin.orders.index', [
-            'orders' => \App\Models\Order::with('user')->latest()->paginate(10)
+            'orders' => \App\Models\Order::with(['user', 'items'])->latest()->paginate(10)
         ])->layout('layouts.admin');
     }
 }

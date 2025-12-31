@@ -17,21 +17,30 @@ class ProductList extends Component
 
     public function render()
     {
-        $query = Product::where('is_active', true);
+        try {
+            $query = Product::where('is_active', true)
+                ->where('stock', '>', 0);
 
-        if (!empty($this->search)) {
-            $query->where(function($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                  ->orWhere('brand', 'like', '%' . $this->search . '%')
-                  ->orWhere('description', 'like', '%' . $this->search . '%');
-            });
+            if (!empty($this->search)) {
+                $searchTerm = '%' . $this->search . '%';
+                $query->where(function($q) use ($searchTerm) {
+                    $q->where('name', 'like', $searchTerm)
+                      ->orWhere('brand', 'like', $searchTerm)
+                      ->orWhere('description', 'like', $searchTerm);
+                });
+            }
+
+            $products = $query->orderBy('created_at', 'desc')->get();
+
+            return view('livewire.product-list', [
+                'products' => $products
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Product list rendering failed: ' . $e->getMessage());
+            return view('livewire.product-list', [
+                'products' => collect()
+            ]);
         }
-
-        $products = $query->get();
-
-        return view('livewire.product-list', [
-            'products' => $products
-        ]);
     }
 }
 

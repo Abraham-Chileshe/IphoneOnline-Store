@@ -11,20 +11,20 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Product routes
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
 
-// Cart routes
+// Cart routes with rate limiting
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/add', [CartController::class, 'add'])->middleware('throttle:30,1')->name('cart.add');
+Route::patch('/cart/update/{id}', [CartController::class, 'update'])->middleware('throttle:60,1')->name('cart.update');
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->middleware('throttle:60,1')->name('cart.remove');
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 
-// Auth routes
+// Auth routes with rate limiting
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:3,1');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Profile routes

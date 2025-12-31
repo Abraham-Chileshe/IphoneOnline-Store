@@ -28,6 +28,11 @@ class CartSummary extends Component
         if ($cart) {
             $item = $cart->items()->where('id', $itemId)->first();
             if ($item) {
+                $product = $item->product;
+                if ($item->quantity >= $product->stock) {
+                    session()->flash('error', 'Cannot add more. Only ' . $product->stock . ' items in stock.');
+                    return;
+                }
                 $item->increment('quantity');
                 $this->dispatch('cart-updated');
             }
@@ -50,6 +55,12 @@ class CartSummary extends Component
     public function placeOrder()
     {
         $user = Auth::user();
+        
+        if (!$user->address || !$user->city || !$user->postal_code || !$user->phone) {
+            session()->flash('error', 'Please complete your profile before placing an order.');
+            return redirect()->route('profile.index');
+        }
+        
         $cart = Cart::where('user_id', $user->id)->first();
         
         if (!$cart || $cart->items()->count() === 0) {
@@ -58,35 +69,52 @@ class CartSummary extends Component
         }
 
         $items = $cart->items()->with('product')->get();
+        
+        // Validate stock availability
+        foreach ($items as $item) {
+            if ($item->product->stock < $item->quantity) {
+                session()->flash('error', "Insufficient stock for {$item->product->name}. Only {$item->product->stock} available.");
+                return;
+            }
+        }
+        
         $totalAmount = $items->sum(function($item) {
             return $item->product->price * $item->quantity;
         });
 
-        \DB::transaction(function() use ($user, $cart, $items, $totalAmount) {
-            $order = Order::create([
-                'user_id' => $user->id,
-                'total_amount' => $totalAmount,
-                'status' => 'pending',
-                'shipping_address' => $user->address,
-                'city' => $user->city,
-                'postal_code' => $user->postal_code,
-                'phone' => $user->phone,
-            ]);
-
-            foreach ($items as $item) {
-                OrderItem::create([
-                    'order_id' => $order->id,
-                    'product_id' => $item->product_id,
-                    'quantity' => $item->quantity,
-                    'price' => $item->product->price,
+        try {
+            \DB::transaction(function() use ($user, $cart, $items, $totalAmount) {
+                $order = Order::create([
+                    'user_id' => $user->id,
+                    'total_amount' => $totalAmount,
+                    'status' => 'pending',
+                    'shipping_address' => $user->address,
+                    'city' => $user->city,
+                    'postal_code' => $user->postal_code,
+                    'phone' => $user->phone,
                 ]);
-            }
 
-            $cart->items()->delete();
-        });
+                foreach ($items as $item) {
+                    OrderItem::create([
+                        'order_id' => $order->id,
+                        'product_id' => $item->product_id,
+                        'quantity' => $item->quantity,
+                        'price' => $item->product->price,
+                    ]);
+                    
+                    // Decrement stock
+                    $item->product->decrement('stock', $item->quantity);
+                }
 
-        session()->flash('success', 'Order placed successfully!');
-        $this->dispatch('order-placed'); 
+                $cart->items()->delete();
+            });
+
+            session()->flash('success', 'Order placed successfully! Order will be processed soon.');
+            $this->dispatch('order-placed');
+        } catch (\Exception $e) {
+            \Log::error('Order placement failed: ' . $e->getMessage());
+            session()->flash('error', 'Failed to place order. Please try again.');
+        }
     }
 
     public function render()

@@ -47,24 +47,33 @@ class UserProfile extends Component
         $user = Auth::user();
 
         $this->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|min:2|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string',
-            'city' => 'nullable|string|max:100',
-            'postal_code' => 'nullable|string|max:20',
+            'phone' => 'required|string|regex:/^[0-9+\-\s()]+$/|min:10|max:20',
+            'address' => 'required|string|min:5|max:500',
+            'city' => 'required|string|min:2|max:100',
+            'postal_code' => 'required|string|min:3|max:20',
+        ], [
+            'phone.regex' => 'Phone number format is invalid.',
+            'phone.required' => 'Phone number is required for order delivery.',
+            'address.required' => 'Address is required for order delivery.',
         ]);
 
-        $user->update([
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'address' => $this->address,
-            'city' => $this->city,
-            'postal_code' => $this->postal_code,
-        ]);
+        try {
+            $user->update([
+                'name' => $this->name,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'address' => $this->address,
+                'city' => $this->city,
+                'postal_code' => $this->postal_code,
+            ]);
 
-        session()->flash('success', 'Profile updated successfully!');
+            session()->flash('success', 'Profile updated successfully!');
+        } catch (\Exception $e) {
+            \Log::error('Profile update failed: ' . $e->getMessage());
+            session()->flash('error', 'Failed to update profile. Please try again.');
+        }
     }
 
     public function render()
