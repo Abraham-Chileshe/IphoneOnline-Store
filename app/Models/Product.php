@@ -30,4 +30,9 @@ class Product extends Model
     {
         return $this->discount_percentage >= 10;
     }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }

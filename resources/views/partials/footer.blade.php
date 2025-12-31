@@ -45,15 +45,28 @@
     <a href="#" class="mobile-nav__item">
         <img src="https://img.icons8.com/ios/50/ffffff/search--v1.png" alt="search">
     </a>
-    <a href="{{ route('cart.index') }}" class="mobile-nav__item {{ request()->routeIs('cart.*') ? 'active' : '' }}">
-        <img src="https://img.icons8.com/ios/50/ffffff/shopping-cart.png" alt="cart">
-    </a>
-    <a href="#" class="mobile-nav__item">
-        <img src="https://img.icons8.com/ios/50/ffffff/like--v1.png" alt="wishlist">
-    </a>
-    <a href="{{ route('login') }}" class="mobile-nav__item">
-        <img src="https://img.icons8.com/ios/50/ffffff/user.png" alt="profile">
-    </a>
+    @auth
+        <a href="{{ route('profile.index', ['tab' => 'cart']) }}" class="mobile-nav__item {{ request()->get('tab') === 'cart' ? 'active' : '' }}">
+            <img src="https://img.icons8.com/ios/50/ffffff/shopping-cart.png" alt="cart">
+        </a>
+        <a href="{{ route('profile.index', ['tab' => 'wishlist']) }}" class="mobile-nav__item {{ request()->get('tab') === 'wishlist' ? 'active' : '' }}">
+            <img src="https://img.icons8.com/ios/50/ffffff/like--v1.png" alt="wishlist">
+        </a>
+        <a href="{{ route('profile.index') }}" class="mobile-nav__item {{ request()->routeIs('profile.*') && !request()->has('tab') ? 'active' : '' }}">
+            <img src="https://img.icons8.com/ios/50/ffffff/user.png" alt="profile">
+        </a>
+    @else
+        <a href="{{ route('cart.index') }}" class="mobile-nav__item {{ request()->routeIs('cart.*') ? 'active' : '' }}">
+            <img src="https://img.icons8.com/ios/50/ffffff/shopping-cart.png" alt="cart">
+        </a>
+        <a href="{{ route('login') }}" class="mobile-nav__item">
+            <img src="https://img.icons8.com/ios/50/ffffff/like--v1.png" alt="wishlist">
+        </a>
+        <a href="{{ route('login') }}" class="mobile-nav__item">
+            <img src="https://img.icons8.com/ios/50/ffffff/user.png" alt="profile">
+        </a>
+    @endauth
+
 </nav>
 
 <div class="chat-toggle">

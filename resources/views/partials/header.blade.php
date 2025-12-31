@@ -13,6 +13,9 @@
                     <a href="#">Accessories</a>
                 </nav>
                 <div class="header__top-right">
+                    @auth
+                        <span style="opacity: 0.8; margin-right: 15px;">Welcome: {{ explode(' ', Auth::user()->name)[0] }}</span>
+                    @endauth
                     <img src="https://img.icons8.com/color/48/us-dollar-circled--v1.png" alt="dollar" class="icon">
                     <span>USD</span>
                 </div>
@@ -29,20 +32,22 @@
                 <button class="header__burger" id="desktopBurger">
                     <span></span><span></span><span></span>
                 </button>
-                <div class="header__search">
-                    <input type="text" placeholder="Search on Wildberries">
-                    <button class="header__search-btn">
-                        <img src="https://img.icons8.com/ios/24/000000/search--v1.png" alt="search">
-                    </button>
-                </div>
+                <livewire:global-search layout="desktop" />
+
                 <div class="header__actions">
 
                     @auth
-                        <a href="{{ route('logout') }}" class="header__action"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <img src="https://img.icons8.com/ios/50/ffffff/user.png" alt="logout">
-                            <span>Logout</span>
-                        </a>
+                        <div class="user-menu" style="display: flex; align-items: center; gap: 15px;">
+                            <a href="{{ route('profile.index') }}" class="header__action">
+                                <img src="https://img.icons8.com/ios/50/ffffff/user.png" alt="profile">
+                                <span>Profile</span>
+                            </a>
+                            <a href="{{ route('logout') }}" class="header__action"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <img src="https://img.icons8.com/ios/50/ffffff/logout-rounded-left.png" alt="logout">
+                                <span>Logout</span>
+                            </a>
+                        </div>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
@@ -52,10 +57,24 @@
                             <span>Login</span>
                         </a>
                     @endauth
-                    <a href="{{ route('cart.index') }}" class="header__action">
-                        <img src="https://img.icons8.com/ios/50/ffffff/shopping-cart.png" alt="cart">
-                        <span>Cart</span>
-                    </a>
+                    @auth
+                        <a href="{{ route('profile.index', ['tab' => 'wishlist']) }}" class="header__action">
+                            <img src="https://img.icons8.com/ios/50/ffffff/like.png" alt="wishlist">
+                            <span>Wishlist</span>
+                        </a>
+                    @endauth
+                    @auth
+                        <a href="{{ route('profile.index', ['tab' => 'cart']) }}" class="header__action">
+                            <img src="https://img.icons8.com/ios/50/ffffff/shopping-cart.png" alt="cart">
+                            <span>Cart</span>
+                        </a>
+                    @else
+                        <a href="{{ route('cart.index') }}" class="header__action">
+                            <img src="https://img.icons8.com/ios/50/ffffff/shopping-cart.png" alt="cart">
+                            <span>Cart</span>
+                        </a>
+                    @endauth
+
 
                     <button class="header__action" id="themeToggle">
                         <img src="https://img.icons8.com/ios/50/ffffff/sun--v1.png" alt="theme" id="themeIcon">
@@ -81,10 +100,8 @@
         <button class="header__burger header__burger--mobile" id="mobileBurger">
             <span></span><span></span><span></span>
         </button>
-        <div class="header-mobile__search">
-            <input type="text" placeholder="Search on Wildberries">
-            <img src="https://img.icons8.com/ios/50/999999/camera.png" alt="photo" class="search-camera">
-        </div>
+        <livewire:global-search layout="mobile" />
+
         <div class="header-mobile__location">
             <img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="location">
         </div>

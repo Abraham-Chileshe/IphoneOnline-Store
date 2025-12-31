@@ -17,12 +17,21 @@ Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 
-// Temporary login route (until Breeze is installed)
-Route::view('/login', 'auth.login')->name('login');
-Route::post('/logout', function() { 
-    auth()->logout(); 
-    return redirect('/'); 
-})->name('logout');
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
+
+// Auth routes
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Profile routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+});
 
 // Auth routes will be added here after installing Laravel Breeze
 // require __DIR__.'/auth.php';

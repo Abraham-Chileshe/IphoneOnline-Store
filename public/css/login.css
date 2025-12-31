@@ -33,9 +33,9 @@
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg-card);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
             border-radius: 32px;
             width: 100%;
             max-width: 440px;
@@ -58,7 +58,7 @@
         .login-title {
             font-size: 24px;
             font-weight: 700;
-            color: var(--white);
+            color: var(--text-main);
         }
 
         .login-form {
@@ -81,12 +81,12 @@
         }
 
         .login-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 16px 20px;
             font-size: 16px;
-            color: var(--white);
+            color: var(--text-main);
             outline: none;
             transition: all 0.2s;
         }
@@ -130,7 +130,7 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--border-color);
         }
 
         .social-btns {
@@ -140,8 +140,8 @@
         }
 
         .social-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 12px;
             display: flex;
@@ -150,7 +150,7 @@
             gap: 10px;
             cursor: pointer;
             transition: all 0.2s;
-            color: var(--white);
+            color: var(--text-main);
             font-weight: 500;
             font-size: 14px;
         }
@@ -162,7 +162,7 @@
 
         .social-btn img {
             width: 20px;
-            filter: brightness(0) invert(1);
+            /* Remove fixed white filter, will handle in light theme overrides if needed */
         }
 
         .login-footer {
@@ -187,3 +187,30 @@
                 font-size: 20px;
             }
         }
+
+        /* Light Theme Overrides */
+        [data-theme="light"] .login-card {
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="light"] .login-input {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .social-btn {
+            background: #ffffff;
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .social-btn img[alt="apple"] {
+            filter: none; /* Apple logo is usually black in light mode */
+        }
+
+        [data-theme="light"] .login-page::before,
+        [data-theme="light"] .login-page::after {
+            opacity: 0.05;
+        }
+

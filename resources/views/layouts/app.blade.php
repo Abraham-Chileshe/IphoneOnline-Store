@@ -12,18 +12,20 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     @stack('styles')
+    @livewireStyles
 </head>
 <body>
- 
-
+    @include('partials.sidebar')
+    @include('partials.header')
     <!-- Main Content -->
     <main class="main">
         @yield('content')
     </main>
 
- @include('partials.footer')
+    @include('partials.footer')
 
     <script src="{{ asset('js/script.js') }}"></script>
+    @livewireScripts
     @stack('scripts')
 </body>
 </html>

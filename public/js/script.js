@@ -82,13 +82,8 @@ if (themeToggle) {
     sidebarClose.addEventListener('click', closeSidebar);
     sidebarOverlay.addEventListener('click', closeSidebar);
 
-    // Buy Button Toast (Mock)
-    document.querySelectorAll('.product-card__buy-btn, .btn-primary, .btn-secondary').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            alert('Действие выполнено!');
-        });
-    });
+    // Buy Button Toast (Mock) - Removed as we now use Livewire
+
 
     // Product Gallery - Thumbnail Switch
     const mainImage = document.getElementById('mainImage');

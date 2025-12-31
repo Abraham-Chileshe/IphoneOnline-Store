@@ -7,42 +7,39 @@
         <div class="login-card">
             <header class="login-header">
                 <a href="index.html" class="logo-wb">wb</a>
-                <h1 class="login-title">Вход или регистрация</h1>
+                <h1 class="login-title">Login or Register</h1>
             </header>
 
-            <form class="login-form" id="loginForm">
+            <form class="login-form" id="loginForm" method="POST" action="{{ route('login') }}">
+                @csrf
                 <div class="input-group">
-                    <label for="phone">Номер телефона или почта</label>
-                    <input type="text" id="phone" class="login-input" placeholder="+7 999 000-00-00" required>
+                    <label for="login">Email or Phone</label>
+                    <input type="text" name="login" id="login" class="login-input" placeholder="example@mail.com or +260..." required value="{{ old('login') }}">
+                    @error('login')
+                        <span class="error-message" style="color: #ff3b30; font-size: 12px;">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="login-input" placeholder="••••••••" required>
                 </div>
                 
-                <button type="submit" class="login-btn">Получить код</button>
+                <button type="submit" class="login-btn">Login</button>
 
-                <div class="login-divider">Или войти через</div>
+                <div class="login-divider">Or</div>
 
-                <div class="social-btns">
-                    <button type="button" class="social-btn">
-                        <img src="https://img.icons8.com/ios-filled/50/ffffff/mac-os.png" alt="apple">
-                        Apple
-                    </button>
-                    <button type="button" class="social-btn">
-                        <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="google" style="filter: none;">
-                        Google
-                    </button>
+                <div class="register-link-container" style="text-align: center;">
+                    <a href="{{ route('register') }}" class="social-btn" style="width: 100%; text-decoration: none;">
+                        Create Account
+                    </a>
                 </div>
             </form>
 
             <footer class="login-footer">
-                Продолжая, вы соглашаетесь с <a href="#">правилами пользования</a> и <a href="#">политикой конфиденциальности</a>
+                By continuing, you agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>
             </footer>
         </div>
     </div>
 
-    <script src="script.js"></script>
-    <script>
-        document.getElementById('loginForm')?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Код подтверждения отправлен!');
-        });
-    </script>
 @endsection
