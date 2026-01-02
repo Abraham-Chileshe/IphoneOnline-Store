@@ -53,7 +53,14 @@ class Create extends Component
         $this->validate();
 
         try {
-            $imagePath = $this->image->store('products', 'public');
+            // Store image with sanitized filename
+            $filename = \Illuminate\Support\Str::random(40) . '.' . $this->image->getClientOriginalExtension();
+            $imagePath = $this->image->storeAs('products', $filename, 'public');
+            
+            // Verify file was uploaded correctly
+            if (!\Illuminate\Support\Facades\Storage::disk('public')->exists('products/' . $filename)) {
+                throw new \Exception('File upload failed');
+            }
             
             $data = [
                 'name' => $this->name,
@@ -69,14 +76,18 @@ class Create extends Component
                 'badge_type' => $this->badge_type ?? 'price',
             ];
 
+            // Handle additional images with same security measures
             if ($this->image_2) {
-                $data['image_2'] = '/storage/' . $this->image_2->store('products', 'public');
+                $filename2 = \Illuminate\Support\Str::random(40) . '.' . $this->image_2->getClientOriginalExtension();
+                $data['image_2'] = '/storage/' . $this->image_2->storeAs('products', $filename2, 'public');
             }
             if ($this->image_3) {
-                $data['image_3'] = '/storage/' . $this->image_3->store('products', 'public');
+                $filename3 = \Illuminate\Support\Str::random(40) . '.' . $this->image_3->getClientOriginalExtension();
+                $data['image_3'] = '/storage/' . $this->image_3->storeAs('products', $filename3, 'public');
             }
             if ($this->image_4) {
-                $data['image_4'] = '/storage/' . $this->image_4->store('products', 'public');
+                $filename4 = \Illuminate\Support\Str::random(40) . '.' . $this->image_4->getClientOriginalExtension();
+                $data['image_4'] = '/storage/' . $this->image_4->storeAs('products', $filename4, 'public');
             }
 
             \App\Models\Product::create($data);

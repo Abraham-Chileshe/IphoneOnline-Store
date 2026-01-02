@@ -46,7 +46,14 @@ class CartController extends Controller
     {
         $request->validate(['quantity' => 'required|integer|min:1']);
         
-        $cartItem = CartItem::findOrFail($id);
+        // Get the current user's cart
+        $cart = $this->getCart();
+        if (!$cart) {
+            return response()->json(['success' => false, 'message' => 'Cart not found'], 404);
+        }
+        
+        // Verify the cart item belongs to this user's cart
+        $cartItem = $cart->items()->findOrFail($id);
         $cartItem->quantity = $request->quantity;
         $cartItem->save();
 
@@ -55,7 +62,14 @@ class CartController extends Controller
 
     public function remove($id)
     {
-        CartItem::findOrFail($id)->delete();
+        // Get the current user's cart
+        $cart = $this->getCart();
+        if (!$cart) {
+            return response()->json(['success' => false, 'message' => 'Cart not found'], 404);
+        }
+        
+        // Verify the cart item belongs to this user's cart
+        $cart->items()->findOrFail($id)->delete();
         return response()->json(['success' => true]);
     }
 

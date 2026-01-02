@@ -21,12 +21,18 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
-        'role',
         'password',
         'address',
         'city',
         'postal_code',
     ];
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array<string>|bool
+     */
+    protected $guarded = ['role'];
 
     public function isAdmin(): bool
     {

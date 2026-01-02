@@ -33,7 +33,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-Route::get('/lang/{locale}', function ($locale) {
+
+// Language and Currency switching (POST to prevent CSRF)
+Route::post('/lang/{locale}', function (Illuminate\Http\Request $request, $locale) {
     if (in_array($locale, ['en', 'ru'])) {
         session()->put('locale', $locale);
         // Sync currency with locale
@@ -42,12 +44,13 @@ Route::get('/lang/{locale}', function ($locale) {
     return redirect()->back();
 })->name('lang.switch');
 
-Route::get('/currency/{currency}', function ($currency) {
+Route::post('/currency/{currency}', function (Illuminate\Http\Request $request, $currency) {
     if (in_array($currency, ['USD', 'RUB', 'AED'])) {
         session()->put('currency', $currency);
     }
     return redirect()->back();
 })->name('currency.switch');
+
 
 // Admin Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

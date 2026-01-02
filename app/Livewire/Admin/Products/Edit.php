@@ -88,17 +88,28 @@ class Edit extends Component
                 'badge_type' => $this->badge_type,
             ];
 
+            // Handle new images with enhanced security
             if ($this->new_image) {
-                $data['image'] = '/storage/' . $this->new_image->store('products', 'public');
+                $filename = \Illuminate\Support\Str::random(40) . '.' . $this->new_image->getClientOriginalExtension();
+                $imagePath = $this->new_image->storeAs('products', $filename, 'public');
+                
+                if (!\Illuminate\Support\Facades\Storage::disk('public')->exists('products/' . $filename)) {
+                    throw new \Exception('Image upload failed');
+                }
+                
+                $data['image'] = '/storage/' . $imagePath;
             }
             if ($this->new_image_2) {
-                $data['image_2'] = '/storage/' . $this->new_image_2->store('products', 'public');
+                $filename2 = \Illuminate\Support\Str::random(40) . '.' . $this->new_image_2->getClientOriginalExtension();
+                $data['image_2'] = '/storage/' . $this->new_image_2->storeAs('products', $filename2, 'public');
             }
             if ($this->new_image_3) {
-                $data['image_3'] = '/storage/' . $this->new_image_3->store('products', 'public');
+                $filename3 = \Illuminate\Support\Str::random(40) . '.' . $this->new_image_3->getClientOriginalExtension();
+                $data['image_3'] = '/storage/' . $this->new_image_3->storeAs('products', $filename3, 'public');
             }
             if ($this->new_image_4) {
-                $data['image_4'] = '/storage/' . $this->new_image_4->store('products', 'public');
+                $filename4 = \Illuminate\Support\Str::random(40) . '.' . $this->new_image_4->getClientOriginalExtension();
+                $data['image_4'] = '/storage/' . $this->new_image_4->storeAs('products', $filename4, 'public');
             }
 
             $this->product->update($data);

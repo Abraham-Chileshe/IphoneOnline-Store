@@ -71,9 +71,11 @@
                 <h1 class="admin-title">@yield('title', __('Dashboard'))</h1>
                 <div class="admin-user" style="display: flex; align-items: center; gap: 20px;">
                     <div class="lang-switch" style="display: flex; gap: 10px; font-size: 13px; font-weight: 600;">
-                        <a href="{{ route('lang.switch', 'en') }}" style="color: {{ app()->getLocale() == 'en' ? 'var(--admin-accent)' : 'var(--text-muted)' }}; text-decoration: none;">EN</a>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('admin-lang-en-form').submit();" style="color: {{ app()->getLocale() == 'en' ? 'var(--admin-accent)' : 'var(--text-muted)' }}; text-decoration: none;">EN</a>
+                        <form id="admin-lang-en-form" action="{{ route('lang.switch', 'en') }}" method="POST" style="display: none;">@csrf</form>
                         <span style="color: var(--admin-border);">|</span>
-                        <a href="{{ route('lang.switch', 'ru') }}" style="color: {{ app()->getLocale() == 'ru' ? 'var(--admin-accent)' : 'var(--text-muted)' }}; text-decoration: none;">RU</a>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('admin-lang-ru-form').submit();" style="color: {{ app()->getLocale() == 'ru' ? 'var(--admin-accent)' : 'var(--text-muted)' }}; text-decoration: none;">RU</a>
+                        <form id="admin-lang-ru-form" action="{{ route('lang.switch', 'ru') }}" method="POST" style="display: none;">@csrf</form>
                     </div>
                     <span class="admin-user-name">{{ auth()->user()->name }}</span>
                 </div>

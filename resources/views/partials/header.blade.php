@@ -17,26 +17,31 @@
                         <span style="opacity: 0.8; margin-right: 15px;">{{ __('Welcome') }}: {{ explode(' ', Auth::user()->name)[0] }}</span>
                     @endauth
                     <div style="display: flex; align-items: center; gap: 12px; margin-left: 15px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 15px;">
-                        <a href="{{ route('currency.switch', 'USD') }}" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'USD' ? '1' : '0.4' }}; transition: opacity 0.2s;">
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('currency-usd-form').submit();" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'USD' ? '1' : '0.4' }}; transition: opacity 0.2s;">
                             <img src="https://img.icons8.com/color/48/us-dollar-circled--v1.png" alt="dollar" class="icon" style="width: 20px;">
                             <span style="color: white; font-size: 13px; font-weight: 600;">USD</span>
                         </a>
+                        <form id="currency-usd-form" action="{{ route('currency.switch', 'USD') }}" method="POST" style="display: none;">@csrf</form>
                         <span style="color: rgba(255,255,255,0.2);">|</span>
-                        <a href="{{ route('currency.switch', 'RUB') }}" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'RUB' ? '1' : '0.4' }}; transition: opacity 0.2s;">
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('currency-rub-form').submit();" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'RUB' ? '1' : '0.4' }}; transition: opacity 0.2s;">
                             <img src="https://img.icons8.com/color/48/ruble.png" alt="ruble" class="icon" style="width: 20px;">
                             <span style="color: white; font-size: 13px; font-weight: 600;">RUB</span>
                         </a>
+                        <form id="currency-rub-form" action="{{ route('currency.switch', 'RUB') }}" method="POST" style="display: none;">@csrf</form>
                         <span style="color: rgba(255,255,255,0.2);">|</span>
-                        <a href="{{ route('currency.switch', 'AED') }}" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'AED' ? '1' : '0.4' }}; transition: opacity 0.2s;">
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('currency-aed-form').submit();" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'AED' ? '1' : '0.4' }}; transition: opacity 0.2s;">
                             <img src="https://img.icons8.com/color/48/united-arab-emirates.png" alt="uae" class="icon" style="width: 20px;">
                             <span style="color: white; font-size: 13px; font-weight: 600;">AED</span>
                         </a>
+                        <form id="currency-aed-form" action="{{ route('currency.switch', 'AED') }}" method="POST" style="display: none;">@csrf</form>
                     </div>
                     
                     <div class="lang-switch" style="display: flex; gap: 10px; font-size: 13px; font-weight: 600; margin-left: 15px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 15px;">
-                        <a href="{{ route('lang.switch', 'en') }}" style="color: {{ app()->getLocale() == 'en' ? '#fff' : 'rgba(255,255,255,0.5)' }}; text-decoration: none; transition: color 0.2s;">EN</a>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('lang-en-form').submit();" style="color: {{ app()->getLocale() == 'en' ? '#fff' : 'rgba(255,255,255,0.5)' }}; text-decoration: none; transition: color 0.2s;">EN</a>
+                        <form id="lang-en-form" action="{{ route('lang.switch', 'en') }}" method="POST" style="display: none;">@csrf</form>
                         <span style="color: rgba(255,255,255,0.2);">|</span>
-                        <a href="{{ route('lang.switch', 'ru') }}" style="color: {{ app()->getLocale() == 'ru' ? '#fff' : 'rgba(255,255,255,0.5)' }}; text-decoration: none; transition: color 0.2s;">RU</a>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('lang-ru-form').submit();" style="color: {{ app()->getLocale() == 'ru' ? '#fff' : 'rgba(255,255,255,0.5)' }}; text-decoration: none; transition: color 0.2s;">RU</a>
+                        <form id="lang-ru-form" action="{{ route('lang.switch', 'ru') }}" method="POST" style="display: none;">@csrf</form>
                     </div>
                 </div>
             </div>
@@ -110,9 +115,33 @@
 <header class="header-mobile">
     <div class="header-mobile__top-nav">
         <div class="header-mobile__nav-scroll">
-            <a href="{{ route('home') }}" class="active">{{ __('Home') }}</a>
-             <a href="#">{{ __('Accessories') }}</a>
-            <a href="#">{{ __('iPhones') }}</a>
+           <div style="display: flex; align-items: center; gap: 12px; margin-left: 15px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 15px;">
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('currency-usd-form-mobile').submit();" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'USD' ? '1' : '0.4' }}; transition: opacity 0.2s;">
+                            <img src="https://img.icons8.com/color/48/us-dollar-circled--v1.png" alt="dollar" class="icon" style="width: 20px;">
+                            <span style="color: white; font-size: 13px; font-weight: 600;">USD</span>
+                        </a>
+                        <form id="currency-usd-form-mobile" action="{{ route('currency.switch', 'USD') }}" method="POST" style="display: none;">@csrf</form>
+                        <span style="color: rgba(255,255,255,0.2);">|</span>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('currency-rub-form-mobile').submit();" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'RUB' ? '1' : '0.4' }}; transition: opacity 0.2s;">
+                            <img src="https://img.icons8.com/color/48/ruble.png" alt="ruble" class="icon" style="width: 20px;">
+                            <span style="color: white; font-size: 13px; font-weight: 600;">RUB</span>
+                        </a>
+                        <form id="currency-rub-form-mobile" action="{{ route('currency.switch', 'RUB') }}" method="POST" style="display: none;">@csrf</form>
+                        <span style="color: rgba(255,255,255,0.2);">|</span>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('currency-aed-form-mobile').submit();" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'AED' ? '1' : '0.4' }}; transition: opacity 0.2s;">
+                            <img src="https://img.icons8.com/color/48/united-arab-emirates.png" alt="uae" class="icon" style="width: 20px;">
+                            <span style="color: white; font-size: 13px; font-weight: 600;">AED</span>
+                        </a>
+                        <form id="currency-aed-form-mobile" action="{{ route('currency.switch', 'AED') }}" method="POST" style="display: none;">@csrf</form>
+                    </div>
+                    
+                    <div class="lang-switch" style="display: flex; gap: 10px; font-size: 13px; font-weight: 600; margin-left: 15px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 15px;">
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('lang-en-form-mobile').submit();" style="color: {{ app()->getLocale() == 'en' ? '#fff' : 'rgba(255,255,255,0.5)' }}; text-decoration: none; transition: color 0.2s;">EN</a>
+                        <form id="lang-en-form-mobile" action="{{ route('lang.switch', 'en') }}" method="POST" style="display: none;">@csrf</form>
+                        <span style="color: rgba(255,255,255,0.2);">|</span>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('lang-ru-form-mobile').submit();" style="color: {{ app()->getLocale() == 'ru' ? '#fff' : 'rgba(255,255,255,0.5)' }}; text-decoration: none; transition: color 0.2s;">RU</a>
+                        <form id="lang-ru-form-mobile" action="{{ route('lang.switch', 'ru') }}" method="POST" style="display: none;">@csrf</form>
+                    </div>
            
         </div>
     </div>
