@@ -34,7 +34,7 @@ class Detail extends Component
             $this->order->update(['status' => $this->status]);
             $this->order->refresh();
             
-            session()->flash('success', 'Order status updated successfully.');
+            session()->flash('success', __('Order status updated successfully.'));
         } catch (\Exception $e) {
             \Log::error('Order status update failed: ' . $e->getMessage());
             session()->flash('error', 'Failed to update order status.');

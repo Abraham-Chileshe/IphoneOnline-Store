@@ -232,6 +232,11 @@ body.admin-body {
     box-shadow: 0 0 0 4px rgba(203, 17, 171, 0.1);
 }
 
+.border-success { border-color: #34c759 !important; }
+.border-warning { border-color: #ffcc00 !important; }
+.border-danger { border-color: #ff3b30 !important; }
+.border-info { border-color: #007aff !important; }
+
 .admin-select {
     appearance: none;
     -webkit-appearance: none;

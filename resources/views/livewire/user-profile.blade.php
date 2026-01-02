@@ -102,13 +102,13 @@
                                             @foreach($order->items as $item)
                                                 <div class="order-item-row">
                                                     <span>{{ $item->product->name ?? __('Deleted Product') }} x {{ $item->quantity }}</span>
-                                                    <span>${{ number_format($item->price * $item->quantity, 2) }}</span>
+                                                    <span>{{ \App\Models\Product::formatPrice($item->price * $item->quantity) }}</span>
                                                 </div>
                                             @endforeach
                                         </div>
                                         <div class="order-footer">
                                             <div class="order-date">{{ $order->created_at->format('M d, Y') }}</div>
-                                            <div class="order-total-amount">{{ __('Total') }}: ${{ number_format($order->total_amount, 2) }}</div>
+                                            <div class="order-total-amount">{{ __('Total') }}: {{ \App\Models\Product::formatPrice($order->total_amount) }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -423,7 +423,10 @@
         }
 
         .status-pending { background: rgba(255, 159, 10, 0.2); color: #ff9f0a; }
-        .status-completed { background: rgba(48, 209, 88, 0.2); color: #30d158; }
+        .status-processing { background: rgba(10, 132, 255, 0.2); color: #0a84ff; }
+        .status-shipped { background: rgba(191, 90, 242, 0.2); color: #bf5af2; }
+        .status-delivered, .status-completed { background: rgba(48, 209, 88, 0.2); color: #30d158; }
+        .status-cancelled { background: rgba(255, 69, 58, 0.2); color: #ff453a; }
 
         .order-body {
             padding: 20px;

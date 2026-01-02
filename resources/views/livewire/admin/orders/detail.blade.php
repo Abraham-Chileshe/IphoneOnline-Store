@@ -65,11 +65,18 @@
                     </div>
                 @endif
                 <form wire:submit.prevent="updateStatus">
-                    <select wire:model="status" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--admin-border); color: white; padding: 10px 12px; border-radius: 8px; margin-bottom: 16px; outline: none;">
-                        @foreach(\App\Models\Order::getStatuses() as $key => $label)
-                            <option value="{{ $key }}">{{ __($label) }}</option>
-                        @endforeach
-                    </select>
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <select wire:model.live="status" class="admin-select 
+                            {{ $status == 'delivered' ? 'border-success' : '' }}
+                            {{ $status == 'pending' ? 'border-warning' : '' }}
+                            {{ $status == 'cancelled' ? 'border-danger' : '' }}
+                            {{ in_array($status, ['processing', 'shipped']) ? 'border-info' : '' }}
+                        ">
+                            @foreach(\App\Models\Order::getStatuses() as $key => $label)
+                                <option value="{{ $key }}">{{ __($label) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <button type="submit" class="btn-primary" style="width: 100%; padding: 10px; border-radius: 8px; background: var(--admin-accent); color: white; border: none; cursor: pointer; font-weight: 600;">
                         <span wire:loading.remove>{{ __('Update Status') }}</span>
                         <span wire:loading>{{ __('Updating...') }}</span>
