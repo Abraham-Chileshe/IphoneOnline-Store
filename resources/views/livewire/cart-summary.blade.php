@@ -23,7 +23,7 @@
                                 $imagePath = asset('storage/' . $imagePath);
                             }
                         @endphp
-                        <a href="{{ route('products.show', $item->product->id) }}" class="cart-item-link">
+                        <a href="{{ route('products.show', $item->product->slug ?? $item->product->id) }}" class="cart-item-link">
                             <img src="{{ $imagePath ?? 'https://via.placeholder.com/150' }}" alt="{{ $item->product->name }}">
                             <div class="cart-mini-name">{{ $item->product->name }}</div>
                         </a>

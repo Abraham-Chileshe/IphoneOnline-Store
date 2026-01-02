@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductCard extends Component
 {
-    public $product;
+    public Product $product;
     public $isAdded = false;
     public $isInWishlist = false;
 

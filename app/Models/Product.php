@@ -9,13 +9,19 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'brand', 'description', 'price', 'old_price', 
+        'name', 'slug', 'brand', 'description', 'price', 'old_price', 
         'image', 'image_2', 'image_3', 'image_4', 'stock', 'category', 'rating', 'reviews_count', 'is_active',
         'badge_text', 'badge_type'
     ];
 
     protected static function booted()
     {
+        static::creating(function ($product) {
+            if (!$product->slug) {
+                $product->slug = \Illuminate\Support\Str::slug($product->name) . '-' . uniqid();
+            }
+        });
+
         static::deleting(function ($product) {
             // Delete associated wishlist items
             $product->wishlists()->delete();
@@ -129,5 +135,10 @@ class Product extends Model
         }
 
         return '$' . number_format($usdAmount, 2, '.', ' ');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
