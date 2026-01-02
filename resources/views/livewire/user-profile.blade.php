@@ -4,7 +4,7 @@
             <nav class="sidebar-menu">
                 <button wire:click="setTab('personal-info')" class="sidebar-btn {{ $activeTab === 'personal-info' ? 'active' : '' }}">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="profile">
-                    {{ __('Personal Info') }}
+                    <span>{{ __('Personal Info') }}</span>
                 </button>
                 <button wire:click="setTab('orders')" class="sidebar-btn {{ $activeTab === 'orders' ? 'active' : '' }}">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/package.png" alt="orders">
@@ -380,6 +380,15 @@
         @media (max-width: 992px) {
             .profile-container {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-form, .cart-summary-grid {
+                grid-template-columns: 1fr;
+            }
+            .full-width {
+                grid-column: span 1;
             }
         }
         /* Orders Styling */

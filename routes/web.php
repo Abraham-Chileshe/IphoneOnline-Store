@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 // Home page
@@ -14,6 +15,7 @@ Route::get('/products/{product}', [ProductController::class, 'show'])->name('pro
 // Cart routes with rate limiting
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->middleware('throttle:30,1')->name('cart.add');
+Route::post('/wishlist/toggle', [WishlistController::class, 'toggle'])->middleware('auth')->name('wishlist.toggle');
 Route::patch('/cart/update/{id}', [CartController::class, 'update'])->middleware('throttle:60,1')->name('cart.update');
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->middleware('throttle:60,1')->name('cart.remove');
 

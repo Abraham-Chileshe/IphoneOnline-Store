@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,7 +28,14 @@ class ProductController extends Controller
                 $isInCart = $cart->items()->where('product_id', $product->id)->exists();
             }
         }
+        // Check if product is in wishlist
+        $isInWishlist = false;
+        if (Auth::check()) {
+            $isInWishlist = Wishlist::where('user_id', Auth::id())
+                ->where('product_id', $product->id)
+                ->exists();
+        }
         
-        return view('products.show', compact('product', 'isInCart'));
+        return view('products.show', compact('product', 'isInCart', 'isInWishlist'));
     }
 }

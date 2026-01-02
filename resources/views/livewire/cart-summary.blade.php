@@ -279,5 +279,29 @@
         [data-theme="dark"] .alert-error {
             color: #ff453a;
         }
+
+        @media (max-width: 768px) {
+            .cart-mini-card {
+                max-width: 100%;
+            }
+            .cart-total-footer {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+                padding: 20px;
+            }
+            .total-info {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .total-price {
+                font-size: 28px;
+            }
+            .btn-checkout {
+                width: 100%;
+                padding: 15px 30px;
+            }
+        }
     </style>
 </div>
