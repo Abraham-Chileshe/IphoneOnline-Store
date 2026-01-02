@@ -36,6 +36,10 @@
                 <a href="{{ route('admin.customers.index') }}" class="nav-link {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
                     <span>{{ __('Customers') }}</span>
                 </a>
+                
+                <a href="{{ route('admin.settings') }}" class="nav-link {{ request()->routeIs('admin.settings') ? 'active' : '' }}">
+                    <span>{{ __('Settings') }}</span>
+                </a>
             </nav>
 
             <div class="sidebar-footer">

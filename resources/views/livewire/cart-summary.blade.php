@@ -27,7 +27,7 @@
                             <img src="{{ $imagePath ?? 'https://via.placeholder.com/150' }}" alt="{{ $item->product->name }}">
                             <div class="cart-mini-name">{{ $item->product->name }}</div>
                         </a>
-                        <div class="cart-mini-price">${{ number_format($item->product->price, 2) }}</div>
+                        <div class="cart-mini-price">{{ $item->product->formatted_price }}</div>
                         <div class="cart-quantity-controls">
                             <button wire:click="decrementQuantity({{ $item->id }})" class="qty-btn" {{ $item->quantity <= 1 ? 'disabled' : '' }}>-</button>
                             <span class="qty-display">{{ $item->quantity }}</span>
@@ -43,7 +43,7 @@
             <div class="cart-total-footer">
                 <div class="total-info">
                     <span>{{ __('Order Total') }}:</span>
-                    <span class="total-price">${{ number_format($total, 2) }}</span>
+                    <span class="total-price">{{ \App\Models\Product::formatPrice($total) }}</span>
                 </div>
                 <button wire:click="placeOrder" class="btn-checkout" wire:loading.attr="disabled">
                     <span wire:loading.remove>{{ __('Place Order') }}</span>

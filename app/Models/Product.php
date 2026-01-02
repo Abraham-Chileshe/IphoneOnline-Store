@@ -100,4 +100,34 @@ class Product extends Model
         // Otherwise query the database
         return $this->reviews()->count();
     }
+
+    // Currency Logic
+    public function getFormattedPriceAttribute()
+    {
+        return $this->formatPrice($this->price);
+    }
+
+    public function getFormattedOldPriceAttribute()
+    {
+        return $this->old_price ? $this->formatPrice($this->old_price) : null;
+    }
+
+    public static function formatPrice($usdAmount)
+    {
+        $currency = session()->get('currency', 'USD');
+        
+        if ($currency === 'RUB') {
+            $rate = Setting::get('usd_to_rub_rate', 90);
+            $amount = $usdAmount * $rate;
+            return number_format($amount, 0, ',', ' ') . ' RUB';
+        }
+
+        if ($currency === 'AED') {
+            $rate = Setting::get('usd_to_aed_rate', 3.67);
+            $amount = $usdAmount * $rate;
+            return number_format($amount, 2, '.', ' ') . ' AED';
+        }
+
+        return '$' . number_format($usdAmount, 2, '.', ' ');
+    }
 }

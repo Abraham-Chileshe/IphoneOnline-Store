@@ -36,9 +36,18 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'ru'])) {
         session()->put('locale', $locale);
+        // Sync currency with locale
+        session()->put('currency', $locale == 'ru' ? 'RUB' : 'USD');
     }
     return redirect()->back();
 })->name('lang.switch');
+
+Route::get('/currency/{currency}', function ($currency) {
+    if (in_array($currency, ['USD', 'RUB', 'AED'])) {
+        session()->put('currency', $currency);
+    }
+    return redirect()->back();
+})->name('currency.switch');
 
 // Admin Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -53,6 +62,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Orders
     Route::get('/orders', App\Livewire\Admin\Orders\Index::class)->name('orders.index');
     Route::get('/orders/{id}', App\Livewire\Admin\Orders\Detail::class)->name('orders.detail');
+
+    // Settings
+    Route::get('/settings', App\Livewire\Admin\Settings::class)->name('settings');
 
     // Customers
     Route::get('/customers', App\Livewire\Admin\Customers\Index::class)->name('customers.index');

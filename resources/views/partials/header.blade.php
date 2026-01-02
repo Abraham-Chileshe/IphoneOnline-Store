@@ -16,10 +16,23 @@
                     @auth
                         <span style="opacity: 0.8; margin-right: 15px;">{{ __('Welcome') }}: {{ explode(' ', Auth::user()->name)[0] }}</span>
                     @endauth
-                    <div style="display: flex; align-items: center; gap: 8px;">
-                        <img src="https://img.icons8.com/color/48/us-dollar-circled--v1.png" alt="dollar" class="icon">
-                        <span>{{ __('USD') }}</span>
+                    <div style="display: flex; align-items: center; gap: 12px; margin-left: 15px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 15px;">
+                        <a href="{{ route('currency.switch', 'USD') }}" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'USD' ? '1' : '0.4' }}; transition: opacity 0.2s;">
+                            <img src="https://img.icons8.com/color/48/us-dollar-circled--v1.png" alt="dollar" class="icon" style="width: 20px;">
+                            <span style="color: white; font-size: 13px; font-weight: 600;">USD</span>
+                        </a>
+                        <span style="color: rgba(255,255,255,0.2);">|</span>
+                        <a href="{{ route('currency.switch', 'RUB') }}" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'RUB' ? '1' : '0.4' }}; transition: opacity 0.2s;">
+                            <img src="https://img.icons8.com/color/48/ruble.png" alt="ruble" class="icon" style="width: 20px;">
+                            <span style="color: white; font-size: 13px; font-weight: 600;">RUB</span>
+                        </a>
+                        <span style="color: rgba(255,255,255,0.2);">|</span>
+                        <a href="{{ route('currency.switch', 'AED') }}" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'AED' ? '1' : '0.4' }}; transition: opacity 0.2s;">
+                            <img src="https://img.icons8.com/color/48/united-arab-emirates.png" alt="uae" class="icon" style="width: 20px;">
+                            <span style="color: white; font-size: 13px; font-weight: 600;">AED</span>
+                        </a>
                     </div>
+                    
                     <div class="lang-switch" style="display: flex; gap: 10px; font-size: 13px; font-weight: 600; margin-left: 15px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 15px;">
                         <a href="{{ route('lang.switch', 'en') }}" style="color: {{ app()->getLocale() == 'en' ? '#fff' : 'rgba(255,255,255,0.5)' }}; text-decoration: none; transition: color 0.2s;">EN</a>
                         <span style="color: rgba(255,255,255,0.2);">|</span>

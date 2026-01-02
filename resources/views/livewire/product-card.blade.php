@@ -28,9 +28,9 @@
         </div>
         <div class="product-card__info">
             <div class="product-card__price-row">
-                <span class="product-card__price">${{ number_format($product->price, 0, ',', ' ') }}</span>
-                @if($product->old_price)
-                    <span class="old-price">${{ number_format($product->old_price, 0, ',', ' ') }}</span>
+                <span class="product-card__price">{{ $product->formatted_price }}</span>
+                @if($product->formatted_old_price)
+                    <span class="old-price">{{ $product->formatted_old_price }}</span>
                 @endif
             </div>
             <div class="product-card__wallet"></div>

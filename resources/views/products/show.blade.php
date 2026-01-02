@@ -67,9 +67,9 @@
                 <div class="purchase-box">
                     <div class="price-section">
                         <div class="main-price">
-                            $<span id="totalPrice">{{ number_format($product->price, 0, ',', ' ') }}</span>
-                            @if($product->old_price)
-                                <span class="original-price">${{ number_format($product->old_price, 0, ',', ' ') }}</span>
+                             <span id="totalPrice">{{ $product->formatted_price }}</span>
+                            @if($product->formatted_old_price)
+                                <span class="original-price">{{ $product->formatted_old_price }}</span>
                                 <span class="discount-label">-{{ $product->discount_percentage }}%</span>
                             @endif
                         </div>

@@ -19,6 +19,11 @@ class SetLocale
             app()->setLocale(session()->get('locale'));
         }
 
+        // Default currency if not set
+        if (!session()->has('currency')) {
+            session()->put('currency', app()->getLocale() == 'ru' ? 'RUB' : 'USD');
+        }
+
         return $next($request);
     }
 }
