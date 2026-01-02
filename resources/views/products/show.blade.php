@@ -232,34 +232,48 @@
     /* --- Gallery --- */
     .gallery-container {
         display: flex;
-        gap: 15px;
+        gap: 20px;
     }
     
     .gallery-thumbs {
         display: flex;
         flex-direction: column;
-        gap: 10px;
-        width: 80px;
+        gap: 12px;
+        width: 100px;
     }
 
     .thumb {
-        width: 80px;
-        height: 100px;
-        border-radius: 12px;
+        width: 100px;
+        height: 120px;
+        border-radius: 16px;
         overflow: hidden;
         border: 2px solid transparent;
         cursor: pointer;
-        transition: all 0.2s;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
         background: var(--bg-card);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+    }
+
+    [data-theme="light"] .thumb {
+        background: #f5f5f7;
+        border-color: rgba(0, 0, 0, 0.03);
     }
 
     .thumb.active {
         border-color: var(--primary-purple);
+        box-shadow: 0 0 15px rgba(203, 17, 171, 0.2);
+    }
+
+    .thumb:hover {
+        transform: scale(1.05);
     }
 
     .thumb img {
-        width: 100%;
-        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
         object-fit: contain;
     }
 
@@ -272,14 +286,20 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 500px;
+        min-height: 600px;
         border: 1px solid var(--border-color);
+        transition: all 0.3s ease;
+    }
+
+    [data-theme="light"] .gallery-main {
+        background: #f5f5f7;
     }
 
     .gallery-main img {
         max-width: 100%;
-        max-height: 450px;
+        max-height: 520px;
         object-fit: contain;
+        filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
     }
 
     .gallery-sale-badge {

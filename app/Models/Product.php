@@ -30,6 +30,21 @@ class Product extends Model
         });
     }
 
+    public function getImageUrl($field = 'image')
+    {
+        $path = $this->$field;
+        if (!$path) return asset('images/placeholder.png');
+        if (str_starts_with($path, 'http')) return $path;
+        
+        // If file exists in public/
+        if (file_exists(public_path($path))) {
+            return asset($path);
+        }
+        
+        // Otherwise assume storage/
+        return asset('storage/' . $path);
+    }
+
 
     protected $casts = [
         'price' => 'decimal:2',
