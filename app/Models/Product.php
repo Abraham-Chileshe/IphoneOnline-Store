@@ -140,7 +140,7 @@ class Product extends Model
         if ($currency === 'RUB') {
             $rate = Setting::get('usd_to_rub_rate', 90);
             $amount = $usdAmount * $rate;
-            return number_format($amount, 0, ',', ' ') . ' RUB';
+            return ' ₽'.number_format($amount, 0, ',', ' ');
         }
 
         if ($currency === 'AED') {

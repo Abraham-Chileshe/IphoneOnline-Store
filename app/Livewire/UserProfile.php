@@ -60,13 +60,14 @@ class UserProfile extends Component
         ]);
 
         try {
+            // Sanitize inputs before updating
             $user->update([
-                'name' => $this->name,
-                'email' => $this->email,
-                'phone' => $this->phone,
-                'address' => $this->address,
-                'city' => $this->city,
-                'postal_code' => $this->postal_code,
+                'name' => strip_tags(trim($this->name)),
+                'email' => filter_var(trim($this->email), FILTER_SANITIZE_EMAIL),
+                'phone' => preg_replace('/[^0-9+\-\s()]/', '', $this->phone),
+                'address' => strip_tags(trim($this->address)),
+                'city' => strip_tags(trim($this->city)),
+                'postal_code' => strip_tags(trim($this->postal_code)),
             ]);
 
             session()->flash('success', 'Profile updated successfully!');

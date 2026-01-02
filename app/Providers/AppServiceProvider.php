@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         \Illuminate\Support\Facades\View::composer('partials.sidebar', function ($view) {
             $categories = \App\Models\Product::where('is_active', true)
                 ->where('stock', '>', 0)
-                ->select('category', \Illuminate\Support\Facades\DB::raw('count(*) as total'))
+                ->selectRaw('category, count(*) as total')
                 ->groupBy('category')
                 ->get();
             

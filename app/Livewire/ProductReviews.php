@@ -85,8 +85,8 @@ class ProductReviews extends Component
                 'user_id' => $user->id,
                 'product_id' => $this->productId,
                 'rating' => $this->rating,
-                'title' => $this->title,
-                'comment' => $this->comment,
+                'title' => strip_tags(trim($this->title)),
+                'comment' => strip_tags(trim($this->comment)),
                 'verified_purchase' => $hasPurchased,
             ]);
             

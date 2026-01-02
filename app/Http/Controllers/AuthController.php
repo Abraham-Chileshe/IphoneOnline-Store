@@ -66,13 +66,13 @@ class AuthController extends Controller
 
         try {
             $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
+                'name' => strip_tags(trim($request->name)),
+                'email' => filter_var(trim($request->email), FILTER_SANITIZE_EMAIL),
+                'phone' => preg_replace('/[^0-9+\-\s()]/', '', $request->phone),
                 'password' => Hash::make($request->password),
-                'address' => $request->address,
-                'city' => $request->city,
-                'postal_code' => $request->postal_code,
+                'address' => strip_tags(trim($request->address)),
+                'city' => strip_tags(trim($request->city)),
+                'postal_code' => strip_tags(trim($request->postal_code)),
                 'role' => 'customer',
             ]);
 
