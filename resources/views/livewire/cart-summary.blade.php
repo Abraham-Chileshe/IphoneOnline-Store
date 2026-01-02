@@ -12,7 +12,7 @@
     @endif
 
     <section class="profile-section">
-        <h2 class="section-title">In Cart ({{ $cartItems->count() }})</h2>
+        <h2 class="section-title">{{ __('In Cart') }} ({{ $cartItems->count() }})</h2>
         @if($cartItems->isNotEmpty())
             <div class="cart-summary-grid">
                 @foreach($cartItems as $item)
@@ -33,7 +33,7 @@
                             <span class="qty-display">{{ $item->quantity }}</span>
                             <button wire:click="incrementQuantity({{ $item->id }})" class="qty-btn">+</button>
                         </div>
-                        <button wire:click="removeItem({{ $item->id }})" class="btn-remove" title="Remove item">
+                        <button wire:click="removeItem({{ $item->id }})" class="btn-remove" title="{{ __('Remove item') }}">
                             <img src="https://img.icons8.com/ios-glyphs/30/ffffff/trash.png" alt="remove">
                         </button>
                     </div>
@@ -42,16 +42,16 @@
 
             <div class="cart-total-footer">
                 <div class="total-info">
-                    <span>Order Total:</span>
+                    <span>{{ __('Order Total') }}:</span>
                     <span class="total-price">${{ number_format($total, 2) }}</span>
                 </div>
                 <button wire:click="placeOrder" class="btn-checkout" wire:loading.attr="disabled">
-                    <span wire:loading.remove>Place Order</span>
-                    <span wire:loading>Processing...</span>
+                    <span wire:loading.remove>{{ __('Place Order') }}</span>
+                    <span wire:loading>{{ __('Processing...') }}</span>
                 </button>
             </div>
         @else
-            <p class="empty-msg">Your cart is empty</p>
+            <p class="empty-msg">{{ __('Your cart is empty') }}</p>
         @endif
     </section>
 

@@ -8,9 +8,9 @@
         <section class="promo-banner">
             <div class="promo-banner__content">
                 <img src="https://img.icons8.com/color/96/wallet.png" alt="wallet">
-                <span>Save up to 5% with maximum wallet and WB Club</span>
+                <span>{{ __('Save up to 5% with maximum wallet and WB Club') }}</span>
             </div>
-            <div class="promo-banner__ad"> <span class="badge">Ad</span></div>
+            <div class="promo-banner__ad"> <span class="badge">{{ __('Ad') }}</span></div>
         </section>
 
         <!-- Hero Banners Slideshow -->
@@ -58,7 +58,7 @@
                 <template x-for="(slide, index) in slides" :key="index">
                     <div class="hero-banner" :class="{ 'active': realActive === index }">
                         <div class="hero-banner__img" :style="'background-image: url(' + slide.img + ')'"></div>
-                        <span class="ad-label">Ad</span>
+                        <span class="ad-label">{{ __('Ad') }}</span>
                     </div>
                 </template>
             </div>

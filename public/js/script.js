@@ -11,12 +11,17 @@ html.setAttribute('data-theme', currentTheme);
 
 // Update icon and text based on current theme
 function updateThemeUI(theme) {
+    if (!themeToggle) return;
+    
+    const lightText = themeToggle.getAttribute('data-light') || 'Light';
+    const darkText = themeToggle.getAttribute('data-dark') || 'Dark';
+
     if (theme === 'light') {
         themeIcon.src = 'https://img.icons8.com/ios/50/ffffff/moon-symbol.png';
-        themeText.textContent = 'Dark';
+        themeText.textContent = darkText;
     } else {
         themeIcon.src = 'https://img.icons8.com/ios/50/ffffff/sun--v1.png';
-        themeText.textContent = 'Light';
+        themeText.textContent = lightText;
     }
 }
 

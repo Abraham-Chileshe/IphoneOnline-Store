@@ -3,7 +3,7 @@
     <div class="container">
         <div style="display: flex; justify-content: center; align-items: center; padding: 30px 0;">
             <p style="margin: 0; color: var(--text-muted); font-size: 14px; text-align: center;">
-                © {{ date('Y') }} iPhone Store. All rights reserved. Developed by Chileshe.
+                © {{ date('Y') }} {{ __('iPhone Store') }}. {{ __('All rights reserved') }}. {{ __('Developed by') }} Chileshe.
             </p>
         </div>
     </div>

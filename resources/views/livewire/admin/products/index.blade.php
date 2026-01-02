@@ -1,4 +1,4 @@
-@section('title', 'Products')
+@section('title', __('Products'))
 
 <div>
     @if (session()->has('success'))
@@ -8,21 +8,20 @@
     @endif
 
     <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
-
-        <a href="{{ route('admin.products.create') }}" class="btn-primary" style="text-decoration: none; padding: 10px 20px; border-radius: 8px; font-size: 14px;">+ Add Product</a>
+        <a href="{{ route('admin.products.create') }}" class="btn-primary" style="text-decoration: none; padding: 10px 20px; border-radius: 8px; font-size: 14px;">+ {{ __('Add Product') }}</a>
     </div>
 
     <div class="data-table-container">
         <table class="data-table">
             <thead>
                 <tr>
-                    <th style="width: 80px;">Image</th>
-                    <th>Name</th>
-                    <th>Brand</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th style="width: 80px;">{{ __('Image') }}</th>
+                    <th>{{ __('Name') }}</th>
+                    <th>{{ __('Brand') }}</th>
+                    <th>{{ __('Price') }}</th>
+                    <th>{{ __('Stock') }}</th>
+                    <th>{{ __('Status') }}</th>
+                    <th>{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,13 +41,13 @@
                     <td>{{ $product->stock }}</td>
                     <td>
                         <span class="status-badge {{ $product->is_active ? 'status-success' : 'status-danger' }}">
-                            {{ $product->is_active ? 'Active' : 'Inactive' }}
+                            {{ $product->is_active ? __('Active') : __('Inactive') }}
                         </span>
                     </td>
                     <td>
                         <div style="display: flex; gap: 8px;">
-                            <a href="{{ route('admin.products.edit', $product->id) }}" class="action-btn">Edit</a>
-                            <button wire:confirm="Are you sure?" wire:click="delete({{ $product->id }})" class="action-btn" style="background: rgba(255, 59, 48, 0.1); color: #ff3b30;">Delete</button>
+                            <a href="{{ route('admin.products.edit', $product->id) }}" class="action-btn">{{ __('Edit') }}</a>
+                            <button wire:confirm="{{ __('Are you sure?') }}" wire:click="delete({{ $product->id }})" class="action-btn" style="background: rgba(255, 59, 48, 0.1); color: #ff3b30;">{{ __('Delete') }}</button>
                         </div>
                     </td>
                 </tr>
@@ -56,6 +55,7 @@
             </tbody>
         </table>
     </div>
+
 
     <div style="margin-top: 24px;">
         {{ $products->links() }}

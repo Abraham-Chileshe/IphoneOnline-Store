@@ -1,14 +1,14 @@
-@section('title', 'Customers')
+@section('title', __('Customers'))
 
 <div>
     <div class="data-table-container">
         <table class="data-table">
             <thead>
                 <tr>
-                    <th>Customer</th>
-                    <th>Role</th>
-                    <th>Joined Date</th>
-                    <th>Orders</th>
+                    <th>{{ __('Customer') }}</th>
+                    <th>{{ __('Role') }}</th>
+                    <th>{{ __('Joined Date') }}</th>
+                    <th>{{ __('Orders') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -20,7 +20,7 @@
                     </td>
                     <td>
                         <span class="status-badge {{ $customer->isAdmin() ? 'status-warning' : 'status-success' }}">
-                            {{ ucfirst($customer->role) }}
+                            {{ __(ucfirst($customer->role)) }}
                         </span>
                     </td>
                     <td>{{ $customer->created_at->format('M d, Y') }}</td>
@@ -30,6 +30,7 @@
             </tbody>
         </table>
     </div>
+
 
     <div style="margin-top: 24px;">
         {{ $customers->links() }}

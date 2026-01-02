@@ -4,18 +4,18 @@
             <nav class="sidebar-menu">
                 <button wire:click="setTab('personal-info')" class="sidebar-btn {{ $activeTab === 'personal-info' ? 'active' : '' }}">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="profile">
-                    Personal Info
+                    {{ __('Personal Info') }}
                 </button>
                 <button wire:click="setTab('orders')" class="sidebar-btn {{ $activeTab === 'orders' ? 'active' : '' }}">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/package.png" alt="orders">
-                    <span>Orders</span>
+                    <span>{{ __('Orders') }}</span>
                     @if($orders->count() > 0)
                         <span class="nav-badge">{{ $orders->count() }}</span>
                     @endif
                 </button>
                 <button wire:click="setTab('wishlist')" class="sidebar-btn {{ $activeTab === 'wishlist' ? 'active' : '' }}">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/like.png" alt="wishlist">
-                    <span>Wishlist</span>
+                    <span>{{ __('Wishlist') }}</span>
                     @if($wishlistItems->count() > 0)
                         <span class="nav-badge">{{ $wishlistItems->count() }}</span>
                     @endif
@@ -23,7 +23,7 @@
 
                 <button wire:click="setTab('cart')" class="sidebar-btn {{ $activeTab === 'cart' ? 'active' : '' }}">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/shopping-cart.png" alt="cart">
-                    <span>My Cart</span>
+                    <span>{{ __('My Cart') }}</span>
                     @if($cartCount > 0)
                         <span class="nav-badge nav-badge-cart">{{ $cartCount }}</span>
                     @endif
@@ -40,47 +40,47 @@
 
             @if($activeTab === 'personal-info')
                 <section class="profile-section">
-                    <h2 class="section-title">Personal Information</h2>
+                    <h2 class="section-title">{{ __('Personal Information') }}</h2>
                     <form wire:submit.prevent="updateProfile" class="grid-form">
                         <div class="form-group full-width">
-                            <label for="name">Full Name</label>
+                            <label for="name">{{ __('Full Name') }}</label>
                             <input type="text" wire:model="name" id="name" class="profile-input" required>
                             @error('name') <span class="error">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email</label>
+                            <label for="email">{{ __('Email') }}</label>
                             <input type="email" wire:model="email" id="email" class="profile-input" required>
                             @error('email') <span class="error">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="phone">Phone</label>
+                            <label for="phone">{{ __('Phone') }}</label>
                             <input type="text" wire:model="phone" id="phone" class="profile-input">
                             @error('phone') <span class="error">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="form-group full-width">
-                            <label for="address">Shipping Address</label>
+                            <label for="address">{{ __('Shipping Address') }}</label>
                             <input type="text" wire:model="address" id="address" class="profile-input">
                             @error('address') <span class="error">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="city">City</label>
+                            <label for="city">{{ __('City') }}</label>
                             <input type="text" wire:model="city" id="city" class="profile-input">
                             @error('city') <span class="error">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="form-group">
-                            <label for="postal_code">Postal Code</label>
+                            <label for="postal_code">{{ __('Postal Code') }}</label>
                             <input type="text" wire:model="postal_code" id="postal_code" class="profile-input">
                             @error('postal_code') <span class="error">{{ $message }}</span> @enderror
                         </div>
 
                         <button type="submit" class="btn-save" wire:loading.attr="disabled">
-                            <span wire:loading.remove>Save Changes</span>
-                            <span wire:loading>Saving...</span>
+                            <span wire:loading.remove>{{ __('Save Changes') }}</span>
+                            <span wire:loading>{{ __('Saving...') }}</span>
                         </button>
                     </form>
                 </section>
@@ -88,40 +88,39 @@
                 <livewire:cart-summary />
             @elseif($activeTab === 'orders')
                 <section class="profile-section">
-                    <h2 class="section-title">Your Orders ({{ $orders->count() }})</h2>
+                    <h2 class="section-title">{{ __('Your Orders') }} ({{ $orders->count() }})</h2>
                     @if($orders->isNotEmpty())
                         <div class="orders-list">
                             @foreach($orders as $order)
                                 <div class="order-card">
                                     <div class="order-header">
-                                        <div class="order-id">Order #{{ $order->id }}</div>
-                                        <div class="order-status status-{{ $order->status }}">{{ ucfirst($order->status) }}</div>
+                                        <div class="order-id">{{ __('Order') }} #{{ $order->id }}</div>
+                                        <div class="order-status status-{{ $order->status }}">{{ __(ucfirst($order->status)) }}</div>
                                     </div>
                                     <div class="order-body">
                                         <div class="order-items-mini">
                                             @foreach($order->items as $item)
                                                 <div class="order-item-row">
-                                                    <span>{{ $item->product->name ?? 'Deleted Product' }} x {{ $item->quantity }}</span>
+                                                    <span>{{ $item->product->name ?? __('Deleted Product') }} x {{ $item->quantity }}</span>
                                                     <span>${{ number_format($item->price * $item->quantity, 2) }}</span>
-
                                                 </div>
                                             @endforeach
                                         </div>
                                         <div class="order-footer">
                                             <div class="order-date">{{ $order->created_at->format('M d, Y') }}</div>
-                                            <div class="order-total-amount">Total: ${{ number_format($order->total_amount, 2) }}</div>
+                                            <div class="order-total-amount">{{ __('Total') }}: ${{ number_format($order->total_amount, 2) }}</div>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     @else
-                        <p class="empty-msg">You haven't placed any orders yet.</p>
+                        <p class="empty-msg">{{ __("You haven't placed any orders yet.") }}</p>
                     @endif
                 </section>
             @elseif($activeTab === 'wishlist')
                 <section class="profile-section">
-                    <h2 class="section-title">Your Wishlist ({{ $wishlistItems->count() }})</h2>
+                    <h2 class="section-title">{{ __('Your Wishlist') }} ({{ $wishlistItems->count() }})</h2>
                     @if($wishlistItems->isNotEmpty())
                         <div class="product-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
                             @foreach($wishlistItems as $item)
@@ -129,10 +128,9 @@
                                     <livewire:product-card :product="$item->product" :key="'wishlist-'.$item->product->id" />
                                 @endif
                             @endforeach
-
                         </div>
                     @else
-                        <p class="empty-msg">Your wishlist is empty.</p>
+                        <p class="empty-msg">{{ __('Your wishlist is empty.') }}</p>
                     @endif
                 </section>
             @endif

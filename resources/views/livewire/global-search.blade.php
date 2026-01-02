@@ -9,7 +9,7 @@
                    wire:model.live.debounce.300ms="search" 
                    wire:keydown.enter="performSearch"
                    @focus="inputFocused = true"
-                   placeholder="Search products..."
+                   placeholder="{{ __('Search products...') }}"
                    autocomplete="off">
             <button class="header__search-btn" wire:click="performSearch" type="button">
                 <img src="https://img.icons8.com/ios/24/000000/search--v1.png" alt="search">
@@ -21,7 +21,7 @@
                  x-show="inputFocused"
                  x-transition
                  wire:key="suggestions-desktop-{{ md5(json_encode($suggestions)) }}">
-                <div class="suggestions-header">Quick Results ({{ count($suggestions) }})</div>
+                <div class="suggestions-header">{{ __('Quick Results') }} ({{ count($suggestions) }})</div>
                 <ul class="suggestions-list">
                     @foreach($suggestions as $suggestion)
                         <li wire:click="selectSuggestion('{{ addslashes($suggestion['name']) }}')" 
@@ -48,7 +48,7 @@
                    wire:model.live.debounce.300ms="search" 
                    wire:keydown.enter="performSearch"
                    @focus="inputFocused = true"
-                   placeholder="Search products..."
+                   placeholder="{{ __('Search products...') }}"
                    autocomplete="off">
             <img src="https://img.icons8.com/ios/50/999999/camera.png" alt="photo" class="search-camera">
         </div>

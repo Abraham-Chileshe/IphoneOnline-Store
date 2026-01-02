@@ -22,7 +22,7 @@
         @forelse($products as $product)
             <livewire:product-card :product="$product" :key="'product-'.$product->id" />
         @empty
-            <p style="color: white; text-align: center; grid-column: 1/-1;">No products found</p>
+            <p style="color: white; text-align: center; grid-column: 1/-1;">{{ __('No products found') }}</p>
         @endforelse
     </section>
 

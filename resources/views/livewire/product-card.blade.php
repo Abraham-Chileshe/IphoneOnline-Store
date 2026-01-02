@@ -21,7 +21,7 @@
                         @if(strtoupper($product->badge_text) === 'GOOD PRICE')
                             <img src="https://img.icons8.com/ios-filled/50/ffffff/thumb-up--v1.png" alt="thumb">
                         @endif
-                        {{ strtoupper($product->badge_text) }}
+                        {{ __(strtoupper($product->badge_text)) }}
                     </div>
                 @endif
             </div>
@@ -38,33 +38,31 @@
                 <img src="https://img.icons8.com/color/48/verified-badge.png" alt="verified" class="verified-icon">
                 <span class="product-card__name">{{ $product->name }}</span>
             </div>
-            <div class="product-card__rating">
-                <span class="star">★</span> {{ $product->rating }} · {{ $product->reviews_count }} reviews
-            </div>
+                <span class="star">★</span> {{ $product->rating }} · {{ $product->reviews_count }} {{ __('reviews') }}
 
             @auth
                 @if($product->stock <= 0)
                     <button class="product-card__buy-btn product-card__buy-btn--unavailable" disabled>
-                        Unavailable
+                        {{ __('Unavailable') }}
                     </button>
                 @elseif($isAdded)
                     <button class="product-card__buy-btn" disabled>
-                        Added to Cart
+                        {{ __('Added to Cart') }}
                     </button>
                 @else
                     <button class="product-card__buy-btn" wire:click.prevent="addToCart" wire:loading.attr="disabled" wire:target="addToCart">
                         <span wire:loading.remove wire:target="addToCart">
                             <img src="https://img.icons8.com/ios-filled/50/ffffff/shopping-cart.png" alt="cart">
-                            Add to Cart
+                            {{ __('Add to Cart') }}
                         </span>
-                        <span wire:loading wire:target="addToCart">Adding...</span>
+                        <span wire:loading wire:target="addToCart">{{ __('Adding...') }}</span>
                     </button>
                 @endif
             @endauth
 
             @guest
                 <button class="product-card__buy-btn" onclick="event.preventDefault(); window.location.href='{{ route('login') }}'">
-                    Contact
+                    {{ __('Contact') }}
                 </button>
             @endguest
 

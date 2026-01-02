@@ -6,10 +6,10 @@
      <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 20px;">
             <!-- Breadcrumbs -->
             <nav class="breadcrumbs" style="margin-bottom: 30px;">
-                <a href="{{ route('home') }}">Home</a> / <a href="#">{{ $product->category ?? 'Smartphones' }}</a> / <a href="#">{{ $product->brand }}</a> / {{ $product->name }}
+                <a href="{{ route('home') }}">{{ __('Home') }}</a> / <a href="#">{{ $product->category ?? __('Smartphones') }}</a> / <a href="#">{{ $product->brand }}</a> / {{ $product->name }}
             </nav>
 
-            <div class="product-content"
+            <div class="product-content">
                 <!-- Gallery Section -->
                 <div class="product-gallery">
                     <div class="gallery-thumbs">
@@ -19,7 +19,7 @@
                     </div>
                     <div class="gallery-main">
                         @if($product->discount_percentage > 0)
-                            <span class="badge badge--ny gallery-badge">SALE -{{ $product->discount_percentage }}%</span>
+                            <span class="badge badge--ny gallery-badge">{{ __('SALE') }} -{{ $product->discount_percentage }}%</span>
                         @endif
                         <img id="mainImage" src="{{ $product->image }}" alt="{{ $product->name }}">
                         <div class="gallery-actions">
@@ -37,26 +37,26 @@
                         <span class="brand-tag">{{ $product->brand }}</span>
                         <h1 class="product-title">{{ $product->name }}</h1>
                         <div class="product-rating">
-                            <span class="star">★</span> {{ $product->rating }} · {{ number_format($product->reviews_count, 0, ',', ' ') }} reviews · <span class="questions">Ask a question</span>
+                            <span class="star">★</span> {{ $product->rating }} · {{ number_format($product->reviews_count, 0, ',', ' ') }} {{ __('reviews') }} · <span class="questions">{{ __('Ask a question') }}</span>
                         </div>
                     </div>
 
                     <div class="specs-brief">
                         <div class="product-description" style="margin-bottom: 20px;">
-                            <h3 style="font-size: 18px; margin-bottom: 10px; color: var(--text-main);">Description</h3>
+                            <h3 style="font-size: 18px; margin-bottom: 10px; color: var(--text-main);">{{ __('Description') }}</h3>
                             <p style="color: var(--text-muted); line-height: 1.8;">{{ $product->description }}</p>
                         </div>
                         
-                        <div class="spec-row" style="margin-top: 20px;"><span>SKU</span> <span>{{ str_pad($product->id, 8, '0', STR_PAD_LEFT) }} <img src="https://img.icons8.com/ios/16/a0a0a0/copy.png" alt="copy"></span></div>
-                        <div class="spec-row"><span>Category</span> <span>{{ $product->category ?? 'iPhone' }}</span></div>
-                        <div class="spec-row"><span>Brand</span> <span>{{ $product->brand }}</span></div>
+                        <div class="spec-row" style="margin-top: 20px;"><span>{{ __('SKU') }}</span> <span>{{ str_pad($product->id, 8, '0', STR_PAD_LEFT) }} <img src="https://img.icons8.com/ios/16/a0a0a0/copy.png" alt="copy"></span></div>
+                        <div class="spec-row"><span>{{ __('Category') }}</span> <span>{{ $product->category ?? __('iPhone') }}</span></div>
+                        <div class="spec-row"><span>{{ __('Brand') }}</span> <span>{{ $product->brand }}</span></div>
                         <div class="spec-row">
-                            <span>Availability</span> 
+                            <span>{{ __('Availability') }}</span> 
                             <span style="color: {{ $product->stock > 0 ? '#22c55e' : '#ef4444' }}; font-weight: 600;">
                                 @if($product->stock > 0)
-                                    In Stock ({{ $product->stock }} {{ Str::plural('unit', $product->stock) }} available)
+                                    {{ __('In Stock') }} ({{ $product->stock }} {{ __($product->stock == 1 ? 'unit' : 'units') }} {{ __('available') }})
                                 @else
-                                    Out of Stock
+                                    {{ __('Out of Stock') }}
                                 @endif
                             </span>
                         </div>
@@ -73,12 +73,12 @@
                                 <span class="discount-label">-{{ $product->discount_percentage }}%</span>
                             @endif
                         </div>
-                        <div class="wallet-promo">Price with WB Wallet</div>
+                        <div class="wallet-promo">{{ __('Price with WB Wallet') }}</div>
                     </div>
 
                     <!-- Quantity Selector -->
                     <div class="quantity-selector">
-                        <span class="quantity-label">Quantity:</span>
+                        <span class="quantity-label">{{ __('Quantity') }}:</span>
                         <div class="quantity-controls">
                             <button class="qty-btn" onclick="updateQuantity(-1)">−</button>
                             <input type="number" id="productQuantity" value="1" min="1" max="{{ $product->stock }}" readonly>
@@ -93,16 +93,18 @@
                                         id="addToCartBtn" 
                                         onclick="sendAddToCart({{ $product->id }})"
                                         data-in-cart="{{ $isInCart ? 'true' : 'false' }}"
+                                        data-label-add="{{ __('Add to Cart') }}"
+                                        data-label-added="✓ {{ __('Added to Cart') }}"
                                         style="{{ $isInCart ? 'background: #22c55e;' : '' }}">
-                                    {{ $isInCart ? '✓ Added to Cart' : 'Add to Cart' }}
+                                    {{ $isInCart ? '✓ ' . __('Added to Cart') : __('Add to Cart') }}
                                 </button>
-                                <button class="btn btn-secondary" onclick="buyNow({{ $product->id }})">Buy Now</button>
+                                <button class="btn btn-secondary" onclick="buyNow({{ $product->id }})">{{ __('Buy Now') }}</button>
                             @else
-                                <button class="btn btn-primary" disabled style="opacity: 0.5; cursor: not-allowed;">Out of Stock</button>
+                                <button class="btn btn-primary" disabled style="opacity: 0.5; cursor: not-allowed;">{{ __('Out of Stock') }}</button>
                             @endif
                         @endauth
                         @guest
-                            <button class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'">Sign In to Purchase</button>
+                            <button class="btn btn-primary" onclick="window.location.href='{{ route('login') }}'">{{ __('Sign In to Purchase') }}</button>
                         @endguest
                     </div>
 
@@ -110,15 +112,15 @@
                         <div class="delivery-row">
                             <img src="https://img.icons8.com/ios/24/ffffff/box.png" alt="box">
                             @auth
-                                <span>Delivery: <b>Tomorrow</b></span>
+                                <span>{{ __('Delivery') }}: <b>{{ __('Tomorrow') }}</b></span>
                             @endauth
                             @guest
-                                <span>Delivery: <b>Contact</b></span>
+                                <span>{{ __('Delivery') }}: <b>{{ __('Contact') }}</b></span>
                             @endguest
                         </div>
                         <div class="delivery-row">
                             <img src="https://img.icons8.com/ios-filled/24/ffffff/marker.png" alt="marker">
-                            <span>Sold by <b>Official Apple Store</b> <span class="seller-rating">★ 5.0</span></span>
+                            <span>{{ __('Sold by') }} <b>{{ __('Official Apple Store') }}</b> <span class="seller-rating">★ 5.0</span></span>
                         </div>
                     </div>
                 </div>
@@ -369,7 +371,7 @@
             const originalText = btn.innerText;
             
             btn.disabled = true;
-            btn.innerText = 'Adding...';
+            btn.innerText = '{{ __('Adding...') }}';
 
             fetch('{{ route('cart.add') }}', {
                 method: 'POST',
@@ -383,7 +385,8 @@
             .then(data => {
                 if (data.success) {
                     // Update button to "Added to Cart" state
-                    btn.innerText = '✓ Added to Cart';
+                    const labelAdded = btn.getAttribute('data-label-added');
+                    btn.innerText = labelAdded;
                     btn.style.background = '#22c55e';
                     btn.setAttribute('data-in-cart', 'true');
                     btn.disabled = false;
@@ -391,7 +394,7 @@
                     // Show temporary success message
                     const successMsg = document.createElement('div');
                     successMsg.style.cssText = 'position: fixed; top: 20px; right: 20px; background: #22c55e; color: white; padding: 15px 25px; border-radius: 8px; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.15);';
-                    successMsg.textContent = '✓ Product added to cart!';
+                    successMsg.textContent = '✓ {{ __('Product added to cart!') }}';
                     document.body.appendChild(successMsg);
                     
                     setTimeout(() => {
@@ -400,12 +403,12 @@
                         setTimeout(() => successMsg.remove(), 300);
                     }, 2000);
                 } else {
-                    throw new Error(data.message || 'Failed to add to cart');
+                    throw new Error(data.message || '{{ __('Failed to add to cart') }}');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                btn.innerText = 'Error - Try Again';
+                btn.innerText = '{{ __('Error - Try Again') }}';
                 btn.style.background = '#ef4444';
                 setTimeout(() => {
                     btn.disabled = false;
