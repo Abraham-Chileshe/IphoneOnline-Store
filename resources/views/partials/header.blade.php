@@ -5,7 +5,7 @@
             <div class="header__top-inner">
                 <div class="header__location">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="location" class="icon">
-                    <span>Lusaka</span>
+                    <span>{{ \App\Models\Setting::get('store_location', 'Lusaka') }}</span>
                 </div>
                 <nav class="header__top-nav">
                     {{-- <a href="{{ route('home') }}">Home</a>

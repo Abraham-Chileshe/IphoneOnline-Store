@@ -268,3 +268,49 @@ body.admin-body {
     gap: 24px;
     margin-bottom: 24px;
 }
+
+/* Responsive Logic */
+@media (max-width: 1024px) {
+    .admin-sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        bottom: 0;
+        z-index: 150;
+        transition: left 0.3s ease;
+    }
+
+    .admin-sidebar.open {
+        left: 0;
+    }
+
+    .admin-mobile-header {
+        display: flex !important;
+    }
+
+    .admin-header {
+        padding: 0 20px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-content {
+        padding: 20px;
+    }
+
+    .admin-user-name {
+        display: none;
+    }
+
+    .data-table-container {
+        overflow-x: auto;
+    }
+}

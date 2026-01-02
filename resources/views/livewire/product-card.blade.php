@@ -38,7 +38,12 @@
                 <img src="https://img.icons8.com/color/48/verified-badge.png" alt="verified" class="verified-icon">
                 <span class="product-card__name">{{ $product->name }}</span>
             </div>
-                <span class="star">★</span> {{ $product->rating }} · {{ $product->reviews_count }} {{ __('reviews') }}
+            <div class="product-card__rating">
+                <i class="fa-solid fa-star star"></i>
+                <span class="rating-value">{{ $product->rating }}</span>
+                <span class="separator">·</span>
+                <span class="reviews-count">{{ $product->reviews_count }} {{ __('reviews') }}</span>
+            </div>
 
             @auth
                 @if($product->stock <= 0)
