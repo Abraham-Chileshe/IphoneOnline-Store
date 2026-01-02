@@ -1100,7 +1100,7 @@ a{
 
     .header-mobile__top-nav {
         padding: 5px 15px;
-        overflow-x: auto;
+        overflow: visible;
         white-space: nowrap;
         scrollbar-width: none;
     }
@@ -1114,6 +1114,7 @@ a{
         gap: 15px;
         justify-content: center;
         width: 100%;
+        overflow: visible;
     }
 
     .header-mobile__nav-scroll a {

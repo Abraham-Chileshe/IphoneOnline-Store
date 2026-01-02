@@ -97,20 +97,34 @@
                             });
                         }
 
-                        // Mobile Dropdown
+                        // Mobile Elements
                         const btnMobile = document.getElementById('cityDropdownBtnMobile');
                         const menuMobile = document.getElementById('cityDropdownMenuMobile');
+                        const btnCurrencyMobile = document.getElementById('currencyDropdownBtnMobile');
+                        const menuCurrencyMobile = document.getElementById('currencyDropdownMenuMobile');
                         
+                        // Mobile City Dropdown
                         if (btnMobile && menuMobile) {
                             btnMobile.addEventListener('click', function(e) {
                                 e.stopPropagation();
+                                if (menuCurrencyMobile) menuCurrencyMobile.classList.remove('show');
                                 menuMobile.classList.toggle('show');
+                            });
+                        }
+
+                        // Mobile Currency Dropdown
+                        if (btnCurrencyMobile && menuCurrencyMobile) {
+                            btnCurrencyMobile.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                if (menuMobile) menuMobile.classList.remove('show');
+                                menuCurrencyMobile.classList.toggle('show');
                             });
                         }
                         
                         document.addEventListener('click', function() {
                             if (menu) menu.classList.remove('show');
                             if (menuMobile) menuMobile.classList.remove('show');
+                            if (menuCurrencyMobile) menuCurrencyMobile.classList.remove('show');
                         });
                     });
                 </script>
@@ -221,47 +235,43 @@
 <!-- Mobile Header -->
 <header class="header-mobile">
     <div class="header-mobile__top-nav">
-        <div class="header-mobile__nav-scroll">
-           <div style="display: flex; align-items: center; gap: 12px; margin-left: 15px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 15px;">
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('currency-usd-form-mobile').submit();" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'USD' ? '1' : '0.4' }}; transition: opacity 0.2s;">
-                            <img src="https://img.icons8.com/color/48/us-dollar-circled--v1.png" alt="dollar" class="icon" style="width: 20px;">
-                            <span style="color: white; font-size: 13px; font-weight: 600;">USD</span>
-                        </a>
-                        <form id="currency-usd-form-mobile" action="{{ route('currency.switch', 'USD') }}" method="POST" style="display: none;">@csrf</form>
-                        <span style="color: rgba(255,255,255,0.2);">|</span>
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('currency-rub-form-mobile').submit();" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'RUB' ? '1' : '0.4' }}; transition: opacity 0.2s;">
-                            <img src="https://img.icons8.com/color/48/ruble.png" alt="ruble" class="icon" style="width: 20px;">
-                            <span style="color: white; font-size: 13px; font-weight: 600;">RUB</span>
-                        </a>
-                        <form id="currency-rub-form-mobile" action="{{ route('currency.switch', 'RUB') }}" method="POST" style="display: none;">@csrf</form>
-                        <span style="color: rgba(255,255,255,0.2);">|</span>
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('currency-aed-form-mobile').submit();" style="display: flex; align-items: center; gap: 4px; text-decoration: none; opacity: {{ session('currency') == 'AED' ? '1' : '0.4' }}; transition: opacity 0.2s;">
-                            <img src="https://img.icons8.com/color/48/united-arab-emirates.png" alt="uae" class="icon" style="width: 20px;">
-                            <span style="color: white; font-size: 13px; font-weight: 600;">AED</span>
-                        </a>
-                        <form id="currency-aed-form-mobile" action="{{ route('currency.switch', 'AED') }}" method="POST" style="display: none;">@csrf</form>
-                    </div>
-                    
-                    <div class="lang-switch" style="display: flex; gap: 10px; font-size: 13px; font-weight: 600; margin-left: 15px; border-left: 1px solid rgba(255,255,255,0.2); padding-left: 15px;">
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('lang-en-form-mobile').submit();" style="color: {{ app()->getLocale() == 'en' ? '#fff' : 'rgba(255,255,255,0.5)' }}; text-decoration: none; transition: color 0.2s;">EN</a>
-                        <form id="lang-en-form-mobile" action="{{ route('lang.switch', 'en') }}" method="POST" style="display: none;">@csrf</form>
-                        <span style="color: rgba(255,255,255,0.2);">|</span>
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('lang-ru-form-mobile').submit();" style="color: {{ app()->getLocale() == 'ru' ? '#fff' : 'rgba(255,255,255,0.5)' }}; text-decoration: none; transition: color 0.2s;">RU</a>
-                        <form id="lang-ru-form-mobile" action="{{ route('lang.switch', 'ru') }}" method="POST" style="display: none;">@csrf</form>
-                    </div>
-           
-        </div>
-    </div>
-    <div class="header-mobile__main">
-        <button class="header__burger header__burger--mobile" id="mobileBurger">
-            <span></span><span></span><span></span>
-        </button>
-        <livewire:global-search layout="mobile" />
-
-        <div class="header-mobile__location">
+        <div class="header-mobile__nav-scroll" style="display: flex; justify-content: space-between; align-items: center; padding: 0 15px; width: 100%; overflow: visible;">
+            <!-- 1. Currency (Left) -->
             <div class="header__dropdown-container">
-                <button class="header__dropdown-btn" id="cityDropdownBtnMobile">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="location" class="icon" style="width: 14px; height: 14px;">
+                <button class="header__dropdown-btn" id="currencyDropdownBtnMobile" style="padding: 4px 5px;">
+                    @php
+                        $currentCurrency = session('currency', 'USD');
+                        $currencyIcon = match($currentCurrency) {
+                            'RUB' => 'https://img.icons8.com/color/48/ruble.png',
+                            'AED' => 'https://img.icons8.com/color/48/united-arab-emirates.png',
+                            default => 'https://img.icons8.com/color/48/us-dollar-circled--v1.png',
+                        };
+                    @endphp
+                    <img src="{{ $currencyIcon }}" alt="currency" style="width: 18px;">
+                    <span style="color: white; font-size: 13px; font-weight: 600;">{{ $currentCurrency }}</span>
+                    <img src="https://img.icons8.com/ios-glyphs/30/ffffff/chevron-down.png" style="width: 10px; margin-left: 2px; opacity: 0.7;">
+                </button>
+                <div class="header__dropdown-menu" id="currencyDropdownMenuMobile" style="left: 0; min-width: 100px;">
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('currency-usd-form-mobile').submit();" style="display: flex; align-items: center; gap: 8px; padding: 10px 12px;">
+                        <img src="https://img.icons8.com/color/48/us-dollar-circled--v1.png" style="width: 18px;"> USD
+                    </a>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('currency-rub-form-mobile').submit();" style="display: flex; align-items: center; gap: 8px; padding: 10px 12px;">
+                        <img src="https://img.icons8.com/color/48/ruble.png" style="width: 18px;"> RUB
+                    </a>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('currency-aed-form-mobile').submit();" style="display: flex; align-items: center; gap: 8px; padding: 10px 12px;">
+                        <img src="https://img.icons8.com/color/48/united-arab-emirates.png" style="width: 18px;"> AED
+                    </a>
+                </div>
+                
+                <form id="currency-usd-form-mobile" action="{{ route('currency.switch', 'USD') }}" method="POST" style="display: none;">@csrf</form>
+                <form id="currency-rub-form-mobile" action="{{ route('currency.switch', 'RUB') }}" method="POST" style="display: none;">@csrf</form>
+                <form id="currency-aed-form-mobile" action="{{ route('currency.switch', 'AED') }}" method="POST" style="display: none;">@csrf</form>
+            </div>
+
+            <!-- 2. Location (Middle) -->
+            <div class="header__dropdown-container" style="border-left: 1px solid rgba(255,255,255,0.2); border-right: 1px solid rgba(255,255,255,0.2); padding: 0 10px;">
+                <button class="header__dropdown-btn" id="cityDropdownBtnMobile" style="padding: 4px 5px;">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="location" style="width: 14px; height: 14px;">
                     <span>
                         @php
                             $currentCitySlugMobile = session('selected_city');
@@ -269,11 +279,12 @@
                         @endphp
                         {{ $currentCityMobile ? $currentCityMobile->localized_name : __('All') }}
                     </span>
+                    <img src="https://img.icons8.com/ios-glyphs/30/ffffff/chevron-down.png" style="width: 10px; margin-left: 2px; opacity: 0.7;">
                 </button>
-                <div class="header__dropdown-menu" id="cityDropdownMenuMobile" style="right: 0; left: auto;">
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('city-all-form-mobile').submit();">{{ __('All') }}</a>
+                <div class="header__dropdown-menu" id="cityDropdownMenuMobile" style="left: 50%; transform: translateX(-50%); min-width: 140px;">
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('city-all-form-mobile').submit();" style="padding: 10px 12px;">{{ __('All') }}</a>
                     @foreach(\App\Models\City::where('is_active', true)->get() as $c)
-                        <a href="#" onclick="event.preventDefault(); document.getElementById('city-{{ $c->id }}-form-mobile').submit();">{{ $c->localized_name }}</a>
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('city-{{ $c->id }}-form-mobile').submit();" style="padding: 10px 12px;">{{ $c->localized_name }}</a>
                     @endforeach
                 </div>
                 
@@ -282,6 +293,22 @@
                     <form id="city-{{ $c->id }}-form-mobile" action="{{ route('city.switch', $c->slug) }}" method="POST" style="display: none;">@csrf</form>
                 @endforeach
             </div>
+            
+            <!-- 3. Languages (Right) -->
+            <div class="lang-switch" style="display: flex; gap: 8px; font-size: 13px; font-weight: 700; padding-right: 5px;">
+                <a href="#" onclick="event.preventDefault(); document.getElementById('lang-en-form-mobile').submit();" style="color: {{ app()->getLocale() == 'en' ? '#fff' : 'rgba(255,255,255,0.5)' }}; text-decoration: none;">EN</a>
+                <form id="lang-en-form-mobile" action="{{ route('lang.switch', 'en') }}" method="POST" style="display: none;">@csrf</form>
+                <span style="color: rgba(255,255,255,0.2);">|</span>
+                <a href="#" onclick="event.preventDefault(); document.getElementById('lang-ru-form-mobile').submit();" style="color: {{ app()->getLocale() == 'ru' ? '#fff' : 'rgba(255,255,255,0.5)' }}; text-decoration: none;">RU</a>
+                <form id="lang-ru-form-mobile" action="{{ route('lang.switch', 'ru') }}" method="POST" style="display: none;">@csrf</form>
+            </div>
+           
         </div>
+    </div>
+    <div class="header-mobile__main">
+        <button class="header__burger header__burger--mobile" id="mobileBurger">
+            <span></span><span></span><span></span>
+        </button>
+        <livewire:global-search layout="mobile" />
     </div>
 </header>

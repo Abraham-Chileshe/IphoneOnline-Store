@@ -5,11 +5,11 @@
 @section('content')
 <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 20px;">
     <!-- Breadcrumbs -->
-    <nav class="breadcrumbs" style="margin-bottom: 30px;">
+    <nav class="breadcrumbs" style="margin-bottom: 25px; white-space: nowrap; overflow-x: auto; padding-bottom: 10px; -webkit-overflow-scrolling: touch; scrollbar-width: none;">
         <a href="{{ route('home') }}">{{ __('Home') }}</a> / 
         <a href="{{ route('home', ['category' => $product->category]) }}">{{ $product->category ?? __('Smartphones') }}</a> / 
         <span>{{ $product->brand }}</span> / 
-        <span style="color: var(--text-muted);">{{ $product->name }}</span>
+        <span style="color: var(--text-muted); padding-right: 20px;">{{ $product->name }}</span>
     </nav>
 
     <div class="product-layout">
@@ -600,6 +600,69 @@
         margin-top: 80px;
         padding-top: 60px;
         border-top: 1px solid var(--border-color);
+    }
+
+    /* Mobile Refinements */
+    @media (max-width: 768px) {
+        .container {
+            padding: 15px !important;
+        }
+
+        .product-layout {
+            gap: 20px;
+        }
+
+        .gallery-container {
+            flex-direction: column-reverse; /* Thumbs below main */
+            gap: 15px;
+        }
+
+        .gallery-thumbs {
+            flex-direction: row; /* Horizontal thumbs */
+            width: 100%;
+            height: auto;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .gallery-thumbs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .thumb {
+            width: 80px;
+            height: 90px;
+            flex-shrink: 0;
+        }
+
+        .gallery-main {
+            min-height: 400px;
+            padding: 20px;
+        }
+
+        .gallery-main img {
+            max-height: 380px;
+        }
+
+        .info-title {
+            font-size: 24px;
+        }
+
+        .info-card, .purchase-card {
+            padding: 20px;
+            border-radius: 20px;
+        }
+
+        .price-current {
+            font-size: 30px;
+        }
+
+        .reviews-section-wrapper {
+            margin-top: 40px;
+            padding-top: 40px;
+        }
     }
 </style>
 @endpush
