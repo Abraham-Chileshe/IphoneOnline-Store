@@ -22,7 +22,7 @@
                         <div style="font-size: 12px; color: var(--text-muted);">{{ $order->user ? $order->user->email : '-' }}</div>
                     </td>
                     <td>{{ $order->created_at->format('M d, Y') }}</td>
-                    <td>${{ number_format($order->total_price, 2) }}</td>
+                    <td>{{ \App\Models\Product::formatPrice($order->total_amount) }}</td>
                     <td>
                         <span class="status-badge 
                             {{ $order->status == 'completed' ? 'status-success' : '' }}

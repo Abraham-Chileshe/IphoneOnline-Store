@@ -952,6 +952,9 @@ body::after {
 .footer__col ul li a:hover {
     color: var(--primary-purple);
 }
+a{
+    text-decoration:none;
+}
 /* Hero Banners Slideshow */
 .hero-banners-carousel {
     margin-bottom: 30px;
