@@ -1,12 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('title', 'Login or Register')
 
 @section('content')
  <div class="login-page">
+        <a href="{{ route('home') }}" class="back-home-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>{{ __('Back to Home') }}</span>
+        </a>
         <div class="login-card">
             <header class="login-header">
-                <a href="index.html" class="logo-wb">wb</a>
+                <a href="{{ route('home') }}" class="logo-wb">wb</a>
                 <h1 class="login-title">{{ __('Login or Register') }}</h1>
             </header>
 

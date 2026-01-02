@@ -43,8 +43,8 @@
                     <img id="mainProductImage" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
                     
                     <div class="gallery-overlay-actions">
-                        <button class="overlay-btn" title="{{ __('Add to Wishlist') }}">
-                            <i class="fa-regular fa-heart"></i>
+                        <button class="overlay-btn" id="wishlistBtn" onclick="handleToggleWishlist({{ $product->id }})" title="{{ __('Add to Wishlist') }}">
+                            <i class="{{ $isInWishlist ? 'fa-solid' : 'fa-regular' }} fa-heart" id="wishlistIcon" style="{{ $isInWishlist ? 'color: #ef4444;' : '' }}"></i>
                         </button>
                         <button class="overlay-btn" title="{{ __('Share') }}">
                             <i class="fa-solid fa-share-nodes"></i>
@@ -755,6 +755,47 @@
         .then(r => r.json())
         .then(data => {
             if (data.success) window.location.href = '{{ route('profile.index') }}?tab=cart';
+        });
+    }
+
+    function handleToggleWishlist(productId) {
+        @guest
+            window.location.href = '{{ route('login') }}';
+            return;
+        @endguest
+
+        const btn = document.getElementById('wishlistBtn');
+        const icon = document.getElementById('wishlistIcon');
+        btn.disabled = true;
+
+        fetch('{{ route('wishlist.toggle') }}', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json', 
+                'X-CSRF-TOKEN': '{{ csrf_token() }}' 
+            },
+            body: JSON.stringify({ product_id: productId })
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                if (data.status === 'added') {
+                    icon.className = 'fa-solid fa-heart';
+                    icon.style.color = '#ef4444';
+                } else {
+                    icon.className = 'fa-regular fa-heart';
+                    icon.style.color = '';
+                }
+                
+                if (window.Livewire) {
+                    window.Livewire.dispatch('wishlist-updated');
+                }
+            }
+            btn.disabled = false;
+        })
+        .catch(err => {
+            console.error('Wishlist error:', err);
+            btn.disabled = false;
         });
     }
 </script>
