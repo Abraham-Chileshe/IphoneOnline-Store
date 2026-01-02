@@ -25,6 +25,7 @@ class Create extends Component
     public $is_active = true;
     public $badge_text;
     public $badge_type = 'price';
+    public $city;
 
     protected $rules = [
         'name' => 'required|min:3|max:255',
@@ -40,6 +41,7 @@ class Create extends Component
         'image_4' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048',
         'badge_text' => 'nullable|string|max:50',
         'badge_type' => 'nullable|in:discount,price,new,sale,hot',
+        'city' => 'required|in:Moscow,Saint Petersburg,Novokuznetsk',
     ];
     
     protected $messages = [
@@ -74,6 +76,7 @@ class Create extends Component
                 'is_active' => $this->is_active,
                 'badge_text' => $this->badge_text,
                 'badge_type' => $this->badge_type ?? 'price',
+                'city' => $this->city,
             ];
 
             // Handle additional images with same security measures

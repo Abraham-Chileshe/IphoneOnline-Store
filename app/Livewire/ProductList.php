@@ -18,6 +18,16 @@ class ProductList extends Component
     #[Url]
     public $category = '';
 
+    #[Url]
+    public $city = '';
+
+    protected $listeners = ['cityChanged' => '$refresh'];
+
+    public function mount()
+    {
+        $this->city = session('selected_city', '');
+    }
+
     public function render()
     {
         try {
@@ -36,6 +46,11 @@ class ProductList extends Component
 
             if (!empty($this->category)) {
                 $query->where('category', $this->category);
+            }
+
+            $currentCity = session('selected_city', '');
+            if (!empty($currentCity)) {
+                $query->where('city', $currentCity);
             }
 
             $products = $query->orderBy('created_at', 'desc')->get();

@@ -11,7 +11,7 @@ class Product extends Model
     protected $fillable = [
         'name', 'slug', 'brand', 'description', 'price', 'old_price', 
         'image', 'image_2', 'image_3', 'image_4', 'stock', 'category', 'rating', 'reviews_count', 'is_active',
-        'badge_text', 'badge_type'
+        'badge_text', 'badge_type', 'city'
     ];
 
     protected static function booted()

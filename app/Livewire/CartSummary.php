@@ -14,41 +14,54 @@ class CartSummary extends Component
     {
         $user = Auth::user();
         $cart = Cart::where('user_id', $user->id)->first();
-        if ($cart) {
-            $cart->items()->where('id', $itemId)->delete();
-            session()->flash('success', 'Item removed from cart!');
-            $this->dispatch('item-removed');
+        if (!$cart) {
+            session()->flash('error', 'Cart not found');
+            return;
         }
+        
+        // Verify the cart item belongs to this user's cart
+        $cart->items()->findOrFail($itemId)->delete();
+        session()->flash('success', 'Item removed from cart!');
+        $this->dispatch('item-removed');
     }
 
     public function incrementQuantity($itemId)
     {
         $user = Auth::user();
         $cart = Cart::where('user_id', $user->id)->first();
-        if ($cart) {
-            $item = $cart->items()->where('id', $itemId)->first();
-            if ($item) {
-                $product = $item->product;
-                if ($item->quantity >= $product->stock) {
-                    session()->flash('error', 'Cannot add more. Only ' . $product->stock . ' items in stock.');
-                    return;
-                }
-                $item->increment('quantity');
-                $this->dispatch('cart-updated');
-            }
+        if (!$cart) {
+            session()->flash('error', 'Cart not found');
+            return;
         }
+        
+        // Verify the cart item belongs to this user's cart
+        $item = $cart->items()->findOrFail($itemId);
+        $product = $item->product;
+        
+        if ($item->quantity >= $product->stock) {
+            session()->flash('error', 'Cannot add more. Only ' . $product->stock . ' items in stock.');
+            return;
+        }
+        
+        $item->increment('quantity');
+        $this->dispatch('cart-updated');
     }
 
     public function decrementQuantity($itemId)
     {
         $user = Auth::user();
         $cart = Cart::where('user_id', $user->id)->first();
-        if ($cart) {
-            $item = $cart->items()->where('id', $itemId)->first();
-            if ($item && $item->quantity > 1) {
-                $item->decrement('quantity');
-                $this->dispatch('cart-updated');
-            }
+        if (!$cart) {
+            session()->flash('error', 'Cart not found');
+            return;
+        }
+        
+        // Verify the cart item belongs to this user's cart
+        $item = $cart->items()->findOrFail($itemId);
+        
+        if ($item->quantity > 1) {
+            $item->decrement('quantity');
+            $this->dispatch('cart-updated');
         }
     }
 

@@ -171,5 +171,10 @@
     "Registration": "Registration",
     "Confirm Password": "Confirm Password",
     "Street, House, Apartment": "Street, House, Apartment",
-    "Already have an account? Login": "Already have an account? Login"
+    "Already have an account? Login": "Already have an account? Login",
+    "All": "All",
+    "Saint Petersburg": "Saint Petersburg",
+    "Moscow": "Moscow",
+    "Novokuznetsk": "Novokuznetsk",
+    "Select City": "Select City"
 }

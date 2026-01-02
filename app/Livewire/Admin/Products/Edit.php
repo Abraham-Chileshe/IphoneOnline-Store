@@ -31,6 +31,7 @@ class Edit extends Component
     public $is_active;
     public $badge_text;
     public $badge_type = 'price';
+    public $city;
 
     protected $rules = [
         'name' => 'required|min:3',
@@ -46,6 +47,7 @@ class Edit extends Component
         'new_image_4' => 'nullable|image|max:2048',
         'badge_text' => 'nullable|string|max:50',
         'badge_type' => 'nullable|in:discount,price,new,sale,hot',
+        'city' => 'required|in:Moscow,Saint Petersburg,Novokuznetsk',
     ];
 
     public function mount($id)
@@ -66,6 +68,7 @@ class Edit extends Component
 
         $this->badge_text = $this->product->badge_text;
         $this->badge_type = $this->product->badge_type ?? 'price';
+        $this->city = $this->product->city;
 
         $this->is_active = (bool) $this->product->is_active;
     }
@@ -86,6 +89,7 @@ class Edit extends Component
                 'is_active' => $this->is_active,
                 'badge_text' => $this->badge_text,
                 'badge_type' => $this->badge_type,
+                'city' => $this->city,
             ];
 
             // Handle new images with enhanced security

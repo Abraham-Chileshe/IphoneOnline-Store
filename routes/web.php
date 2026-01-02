@@ -51,6 +51,14 @@ Route::post('/currency/{currency}', function (Illuminate\Http\Request $request, 
     return redirect()->back();
 })->name('currency.switch');
 
+Route::post('/city/{city}', function (Illuminate\Http\Request $request, $city) {
+    $cities = ['all', 'Moscow', 'Saint Petersburg', 'Novokuznetsk'];
+    if (in_array($city, $cities)) {
+        session()->put('selected_city', $city === 'all' ? '' : $city);
+    }
+    return redirect()->back();
+})->name('city.switch');
+
 
 // Admin Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {

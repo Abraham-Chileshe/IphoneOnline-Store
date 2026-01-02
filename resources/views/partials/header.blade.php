@@ -4,9 +4,110 @@
         <div class="container">
             <div class="header__top-inner">
                 <div class="header__location">
-                    <img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="location" class="icon">
-                    <span>{{ \App\Models\Setting::get('store_location', 'Lusaka') }}</span>
+                    <div class="header__dropdown-container">
+                        <button class="header__dropdown-btn" id="cityDropdownBtn">
+                            <img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="location" class="icon" style="width: 14px; height: 14px;">
+                            <span>{{ session('selected_city') ? __(session('selected_city')) : __('All') }}</span>
+                            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/chevron-down.png" style="width: 10px; margin-left: 4px; opacity: 0.7;">
+                        </button>
+                        <div class="header__dropdown-menu" id="cityDropdownMenu">
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('city-all-form').submit();">{{ __('All') }}</a>
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('city-moscow-form').submit();">{{ __('Moscow') }}</a>
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('city-spb-form').submit();">{{ __('Saint Petersburg') }}</a>
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('city-novokuznetsk-form').submit();">{{ __('Novokuznetsk') }}</a>
+                        </div>
+                        
+                        <form id="city-all-form" action="{{ route('city.switch', 'all') }}" method="POST" style="display: none;">@csrf</form>
+                        <form id="city-moscow-form" action="{{ route('city.switch', 'Moscow') }}" method="POST" style="display: none;">@csrf</form>
+                        <form id="city-spb-form" action="{{ route('city.switch', 'Saint Petersburg') }}" method="POST" style="display: none;">@csrf</form>
+                        <form id="city-novokuznetsk-form" action="{{ route('city.switch', 'Novokuznetsk') }}" method="POST" style="display: none;">@csrf</form>
+                    </div>
                 </div>
+
+                <style>
+                    .header__dropdown-container {
+                        position: relative;
+                        display: inline-block;
+                    }
+                    .header__dropdown-btn {
+                        background: none;
+                        border: none;
+                        color: white;
+                        font-size: 13px;
+                        font-weight: 600;
+                        display: flex;
+                        align-items: center;
+                        gap: 6px;
+                        cursor: pointer;
+                        padding: 4px 8px;
+                        border-radius: 8px;
+                        transition: background 0.2s;
+                    }
+                    .header__dropdown-btn:hover {
+                        background: rgba(255,255,255,0.1);
+                    }
+                    .header__dropdown-menu {
+                        display: none;
+                        position: absolute;
+                        top: 100%;
+                        left: 0;
+                        background: #222;
+                        border: 1px solid rgba(255,255,255,0.1);
+                        border-radius: 12px;
+                        min-width: 160px;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                        z-index: 9999;
+                        margin-top: 8px;
+                        overflow: hidden;
+                    }
+                    .header__dropdown-menu.show {
+                        display: block;
+                    }
+                    .header__dropdown-menu a {
+                        color: rgba(255,255,255,0.8);
+                        padding: 12px 16px;
+                        text-decoration: none;
+                        display: block;
+                        font-size: 13px;
+                        font-weight: 500;
+                        transition: all 0.2s;
+                    }
+                    .header__dropdown-menu a:hover {
+                        background: rgba(255,255,255,0.05);
+                        color: white;
+                    }
+                </style>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Desktop Dropdown
+                        const btn = document.getElementById('cityDropdownBtn');
+                        const menu = document.getElementById('cityDropdownMenu');
+                        
+                        if (btn && menu) {
+                            btn.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                menu.classList.toggle('show');
+                            });
+                        }
+
+                        // Mobile Dropdown
+                        const btnMobile = document.getElementById('cityDropdownBtnMobile');
+                        const menuMobile = document.getElementById('cityDropdownMenuMobile');
+                        
+                        if (btnMobile && menuMobile) {
+                            btnMobile.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                menuMobile.classList.toggle('show');
+                            });
+                        }
+                        
+                        document.addEventListener('click', function() {
+                            if (menu) menu.classList.remove('show');
+                            if (menuMobile) menuMobile.classList.remove('show');
+                        });
+                    });
+                </script>
                 <nav class="header__top-nav">
                     {{-- <a href="{{ route('home') }}">Home</a>
                     <a href="#">iPhones</a>
@@ -152,7 +253,23 @@
         <livewire:global-search layout="mobile" />
 
         <div class="header-mobile__location">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="location">
+            <div class="header__dropdown-container">
+                <button class="header__dropdown-btn" id="cityDropdownBtnMobile">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="location" class="icon" style="width: 14px; height: 14px;">
+                    <span>{{ session('selected_city') ? __(session('selected_city')) : __('All') }}</span>
+                </button>
+                <div class="header__dropdown-menu" id="cityDropdownMenuMobile" style="right: 0; left: auto;">
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('city-all-form-mobile').submit();">{{ __('All') }}</a>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('city-moscow-form-mobile').submit();">{{ __('Moscow') }}</a>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('city-spb-form-mobile').submit();">{{ __('Saint Petersburg') }}</a>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('city-novokuznetsk-form-mobile').submit();">{{ __('Novokuznetsk') }}</a>
+                </div>
+                
+                <form id="city-all-form-mobile" action="{{ route('city.switch', 'all') }}" method="POST" style="display: none;">@csrf</form>
+                <form id="city-moscow-form-mobile" action="{{ route('city.switch', 'Moscow') }}" method="POST" style="display: none;">@csrf</form>
+                <form id="city-spb-form-mobile" action="{{ route('city.switch', 'Saint Petersburg') }}" method="POST" style="display: none;">@csrf</form>
+                <form id="city-novokuznetsk-form-mobile" action="{{ route('city.switch', 'Novokuznetsk') }}" method="POST" style="display: none;">@csrf</form>
+            </div>
         </div>
     </div>
 </header>
