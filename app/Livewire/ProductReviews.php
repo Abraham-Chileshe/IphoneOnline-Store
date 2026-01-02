@@ -54,6 +54,16 @@ class ProductReviews extends Component
         
         $user = Auth::user();
         
+        // Rate limiting: max 5 reviews per hour
+        $recentReviewsCount = Review::where('user_id', $user->id)
+            ->where('created_at', '>=', now()->subHour())
+            ->count();
+            
+        if ($recentReviewsCount >= 5) {
+            session()->flash('error', 'You can only submit 5 reviews per hour. Please try again later.');
+            return;
+        }
+        
         // Check if user already reviewed this product
         $existingReview = Review::where('user_id', $user->id)
             ->where('product_id', $this->productId)

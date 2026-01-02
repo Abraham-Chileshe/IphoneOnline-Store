@@ -15,9 +15,26 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Check if user is authenticated and is admin
         if (!auth()->check() || !auth()->user()->isAdmin()) {
+            \Log::warning('Unauthorized admin access attempt', [
+                'ip' => $request->ip(),
+                'user_id' => auth()->id(),
+                'url' => $request->fullUrl(),
+                'user_agent' => $request->userAgent(),
+            ]);
             abort(403, 'Unauthorized access.');
         }
+
+        // Log all admin actions for audit trail
+        \Log::info('Admin access', [
+            'user_id' => auth()->id(),
+            'user_name' => auth()->user()->name,
+            'action' => $request->method() . ' ' . $request->path(),
+            'ip' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'timestamp' => now()->toDateTimeString(),
+        ]);
 
         return $next($request);
     }
