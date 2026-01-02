@@ -31,7 +31,7 @@ class ProductList extends Component
     public function render()
     {
         try {
-            $query = Product::with('reviews')
+            $query = Product::with(['reviews', 'cityData'])
                 ->where('is_active', true)
                 ->where('stock', '>', 0);
 

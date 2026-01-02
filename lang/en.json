@@ -176,5 +176,19 @@
     "Saint Petersburg": "Saint Petersburg",
     "Moscow": "Moscow",
     "Novokuznetsk": "Novokuznetsk",
-    "Select City": "Select City"
+    "Select City": "Select City",
+    "Cities": "Cities",
+    "Add City": "Add City",
+    "City Name (English)": "City Name (English)",
+    "City Name (Russian)": "City Name (Russian)",
+    "Name (EN)": "Name (EN)",
+    "Name (RU)": "Name (RU)",
+    "City created successfully!": "City created successfully!",
+    "City updated successfully!": "City updated successfully!",
+    "City deleted successfully!": "City deleted successfully!",
+    "Are you sure? This may affect products assigned to this city.": "Are you sure? This may affect products assigned to this city.",
+    "Create City": "Create City",
+    "Update City": "Update City",
+    "Changing the slug may break existing product filters if products were assigned using the old slug.": "Changing the slug may break existing product filters if products were assigned using the old slug.",
+    "This is used for filtering products and routing.": "This is used for filtering products and routing."
 }

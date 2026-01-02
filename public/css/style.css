@@ -735,6 +735,26 @@ body::after {
     color: var(--text-muted);
 }
 
+.product-card__location {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: auto;
+    margin-bottom: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 4px 8px;
+    border-radius: 6px;
+    width: fit-content;
+}
+
+.product-card__location img {
+    width: 12px;
+    height: 12px;
+    opacity: 0.7;
+}
+
 .product-card__buy-btn {
     width: 100%;
     background: #a23ff2;

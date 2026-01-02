@@ -26,6 +26,7 @@ class Create extends Component
     public $badge_text;
     public $badge_type = 'price';
     public $city;
+    public $cities = [];
 
     protected $rules = [
         'name' => 'required|min:3|max:255',
@@ -41,7 +42,7 @@ class Create extends Component
         'image_4' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048',
         'badge_text' => 'nullable|string|max:50',
         'badge_type' => 'nullable|in:discount,price,new,sale,hot',
-        'city' => 'required|in:Moscow,Saint Petersburg,Novokuznetsk',
+        'city' => 'required|exists:cities,slug',
     ];
     
     protected $messages = [
@@ -105,6 +106,7 @@ class Create extends Component
 
     public function render()
     {
+        $this->cities = \App\Models\City::where('is_active', true)->get();
         return view('livewire.admin.products.create')->layout('layouts.admin');
     }
 }

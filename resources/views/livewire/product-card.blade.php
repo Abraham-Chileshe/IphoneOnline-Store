@@ -45,6 +45,13 @@
                 <span class="reviews-count">{{ $product->reviews_count }} {{ __('reviews') }}</span>
             </div>
 
+            @if($product->cityData)
+                <div class="product-card__location">
+                    <img src="https://img.icons8.com/ios-filled/50/8e8e93/marker.png" alt="location">
+                    <span>{{ $product->cityData->localized_name }}</span>
+                </div>
+            @endif
+
             @auth
                 @if($product->stock <= 0)
                     <button class="product-card__buy-btn product-card__buy-btn--unavailable" disabled>

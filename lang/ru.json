@@ -200,5 +200,19 @@
     "Saint Petersburg": "Санкт Петербург",
     "Moscow": "Москва",
     "Novokuznetsk": "Новокузнецк",
-    "Select City": "Выберите город"
+    "Select City": "Выберите город",
+    "Cities": "Города",
+    "Add City": "Добавить город",
+    "City Name (English)": "Название города (EN)",
+    "City Name (Russian)": "Название города (RU)",
+    "Name (EN)": "Название (EN)",
+    "Name (RU)": "Название (RU)",
+    "City created successfully!": "Город успешно создан!",
+    "City updated successfully!": "Город успешно обновлен!",
+    "City deleted successfully!": "Город успешно удален!",
+    "Are you sure? This may affect products assigned to this city.": "Вы уверены? Это может повлиять на товары, привязанные к этому городу.",
+    "Create City": "Создать город",
+    "Update City": "Обновить город",
+    "Changing the slug may break existing product filters if products were assigned using the old slug.": "Изменение slug может нарушить существующие фильтры товаров, если товары были привязаны с использованием старого slug.",
+    "This is used for filtering products and routing.": "Это используется для фильтрации товаров и маршрутизации."
 }

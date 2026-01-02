@@ -52,8 +52,7 @@ Route::post('/currency/{currency}', function (Illuminate\Http\Request $request, 
 })->name('currency.switch');
 
 Route::post('/city/{city}', function (Illuminate\Http\Request $request, $city) {
-    $cities = ['all', 'Moscow', 'Saint Petersburg', 'Novokuznetsk'];
-    if (in_array($city, $cities)) {
+    if ($city === 'all' || \App\Models\City::where('slug', $city)->exists()) {
         session()->put('selected_city', $city === 'all' ? '' : $city);
     }
     return redirect()->back();
@@ -73,6 +72,11 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Orders
     Route::get('/orders', App\Livewire\Admin\Orders\Index::class)->name('orders.index');
     Route::get('/orders/{id}', App\Livewire\Admin\Orders\Detail::class)->name('orders.detail');
+
+    // Cities
+    Route::get('/cities', App\Livewire\Admin\Cities\Index::class)->name('cities.index');
+    Route::get('/cities/create', App\Livewire\Admin\Cities\Create::class)->name('cities.create');
+    Route::get('/cities/{id}/edit', App\Livewire\Admin\Cities\Edit::class)->name('cities.edit');
 
     // Settings
     Route::get('/settings', App\Livewire\Admin\Settings::class)->name('settings');

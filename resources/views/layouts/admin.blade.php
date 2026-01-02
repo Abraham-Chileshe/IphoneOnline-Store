@@ -45,6 +45,11 @@
                     <span>{{ __('Orders') }}</span>
                 </a>
                 
+                <a href="{{ route('admin.cities.index') }}" class="nav-link {{ request()->routeIs('admin.cities.*') ? 'active' : '' }}">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span>{{ __('Cities') }}</span>
+                </a>
+                
                 <a href="{{ route('admin.customers.index') }}" class="nav-link {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-users"></i>
                     <span>{{ __('Customers') }}</span>

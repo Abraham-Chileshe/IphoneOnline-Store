@@ -7,20 +7,26 @@
                     <div class="header__dropdown-container">
                         <button class="header__dropdown-btn" id="cityDropdownBtn">
                             <img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="location" class="icon" style="width: 14px; height: 14px;">
-                            <span>{{ session('selected_city') ? __(session('selected_city')) : __('All') }}</span>
+                            <span>
+                                @php
+                                    $currentCitySlug = session('selected_city');
+                                    $currentCity = $currentCitySlug ? \App\Models\City::where('slug', $currentCitySlug)->first() : null;
+                                @endphp
+                                {{ $currentCity ? $currentCity->localized_name : __('All') }}
+                            </span>
                             <img src="https://img.icons8.com/ios-glyphs/30/ffffff/chevron-down.png" style="width: 10px; margin-left: 4px; opacity: 0.7;">
                         </button>
                         <div class="header__dropdown-menu" id="cityDropdownMenu">
                             <a href="#" onclick="event.preventDefault(); document.getElementById('city-all-form').submit();">{{ __('All') }}</a>
-                            <a href="#" onclick="event.preventDefault(); document.getElementById('city-moscow-form').submit();">{{ __('Moscow') }}</a>
-                            <a href="#" onclick="event.preventDefault(); document.getElementById('city-spb-form').submit();">{{ __('Saint Petersburg') }}</a>
-                            <a href="#" onclick="event.preventDefault(); document.getElementById('city-novokuznetsk-form').submit();">{{ __('Novokuznetsk') }}</a>
+                            @foreach(\App\Models\City::where('is_active', true)->get() as $c)
+                                <a href="#" onclick="event.preventDefault(); document.getElementById('city-{{ $c->id }}-form').submit();">{{ $c->localized_name }}</a>
+                            @endforeach
                         </div>
                         
                         <form id="city-all-form" action="{{ route('city.switch', 'all') }}" method="POST" style="display: none;">@csrf</form>
-                        <form id="city-moscow-form" action="{{ route('city.switch', 'Moscow') }}" method="POST" style="display: none;">@csrf</form>
-                        <form id="city-spb-form" action="{{ route('city.switch', 'Saint Petersburg') }}" method="POST" style="display: none;">@csrf</form>
-                        <form id="city-novokuznetsk-form" action="{{ route('city.switch', 'Novokuznetsk') }}" method="POST" style="display: none;">@csrf</form>
+                        @foreach(\App\Models\City::where('is_active', true)->get() as $c)
+                            <form id="city-{{ $c->id }}-form" action="{{ route('city.switch', $c->slug) }}" method="POST" style="display: none;">@csrf</form>
+                        @endforeach
                     </div>
                 </div>
 
@@ -256,19 +262,25 @@
             <div class="header__dropdown-container">
                 <button class="header__dropdown-btn" id="cityDropdownBtnMobile">
                     <img src="https://img.icons8.com/ios-filled/50/ffffff/marker.png" alt="location" class="icon" style="width: 14px; height: 14px;">
-                    <span>{{ session('selected_city') ? __(session('selected_city')) : __('All') }}</span>
+                    <span>
+                        @php
+                            $currentCitySlugMobile = session('selected_city');
+                            $currentCityMobile = $currentCitySlugMobile ? \App\Models\City::where('slug', $currentCitySlugMobile)->first() : null;
+                        @endphp
+                        {{ $currentCityMobile ? $currentCityMobile->localized_name : __('All') }}
+                    </span>
                 </button>
                 <div class="header__dropdown-menu" id="cityDropdownMenuMobile" style="right: 0; left: auto;">
                     <a href="#" onclick="event.preventDefault(); document.getElementById('city-all-form-mobile').submit();">{{ __('All') }}</a>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('city-moscow-form-mobile').submit();">{{ __('Moscow') }}</a>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('city-spb-form-mobile').submit();">{{ __('Saint Petersburg') }}</a>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('city-novokuznetsk-form-mobile').submit();">{{ __('Novokuznetsk') }}</a>
+                    @foreach(\App\Models\City::where('is_active', true)->get() as $c)
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('city-{{ $c->id }}-form-mobile').submit();">{{ $c->localized_name }}</a>
+                    @endforeach
                 </div>
                 
                 <form id="city-all-form-mobile" action="{{ route('city.switch', 'all') }}" method="POST" style="display: none;">@csrf</form>
-                <form id="city-moscow-form-mobile" action="{{ route('city.switch', 'Moscow') }}" method="POST" style="display: none;">@csrf</form>
-                <form id="city-spb-form-mobile" action="{{ route('city.switch', 'Saint Petersburg') }}" method="POST" style="display: none;">@csrf</form>
-                <form id="city-novokuznetsk-form-mobile" action="{{ route('city.switch', 'Novokuznetsk') }}" method="POST" style="display: none;">@csrf</form>
+                @foreach(\App\Models\City::where('is_active', true)->get() as $c)
+                    <form id="city-{{ $c->id }}-form-mobile" action="{{ route('city.switch', $c->slug) }}" method="POST" style="display: none;">@csrf</form>
+                @endforeach
             </div>
         </div>
     </div>

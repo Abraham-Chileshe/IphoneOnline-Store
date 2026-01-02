@@ -85,6 +85,11 @@ class Product extends Model
     {
         return $this->hasMany(Review::class);
     }
+
+    public function cityData()
+    {
+        return $this->hasOne(City::class, 'slug', 'city');
+    }
     
     public function averageRating()
     {

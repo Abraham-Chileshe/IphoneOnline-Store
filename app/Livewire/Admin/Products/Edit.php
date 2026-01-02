@@ -32,6 +32,7 @@ class Edit extends Component
     public $badge_text;
     public $badge_type = 'price';
     public $city;
+    public $cities = [];
 
     protected $rules = [
         'name' => 'required|min:3',
@@ -47,7 +48,7 @@ class Edit extends Component
         'new_image_4' => 'nullable|image|max:2048',
         'badge_text' => 'nullable|string|max:50',
         'badge_type' => 'nullable|in:discount,price,new,sale,hot',
-        'city' => 'required|in:Moscow,Saint Petersburg,Novokuznetsk',
+        'city' => 'required|exists:cities,slug',
     ];
 
     public function mount($id)
@@ -129,6 +130,7 @@ class Edit extends Component
 
     public function render()
     {
+        $this->cities = \App\Models\City::where('is_active', true)->get();
         return view('livewire.admin.products.edit')->layout('layouts.admin');
     }
 }

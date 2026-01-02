@@ -44,9 +44,9 @@
                      <label class="form-label" for="city">{{ __('City') }}</label>
                      <select id="city" class="admin-select" wire:model="city">
                          <option value="">{{ __('Select City') }}</option>
-                         <option value="Moscow">{{ __('Moscow') }}</option>
-                         <option value="Saint Petersburg">{{ __('Saint Petersburg') }}</option>
-                         <option value="Novokuznetsk">{{ __('Novokuznetsk') }}</option>
+                         @foreach($cities as $c)
+                             <option value="{{ $c->slug }}">{{ $c->localized_name }}</option>
+                         @endforeach
                      </select>
                      @error('city') <span style="color: #ff3b30; font-size: 12px; margin-top: 4px; display: block;">{{ $message }}</span> @enderror
                 </div>
