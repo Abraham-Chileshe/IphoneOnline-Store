@@ -15,6 +15,9 @@ class ProductList extends Component
     #[Url]
     public $search = '';
 
+    #[Url]
+    public $category = '';
+
     public function render()
     {
         try {
@@ -29,6 +32,10 @@ class ProductList extends Component
                       ->orWhere('brand', 'like', $searchTerm)
                       ->orWhere('description', 'like', $searchTerm);
                 });
+            }
+
+            if (!empty($this->category)) {
+                $query->where('category', $this->category);
             }
 
             $products = $query->orderBy('created_at', 'desc')->get();
