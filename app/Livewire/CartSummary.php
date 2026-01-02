@@ -128,7 +128,8 @@ class CartSummary extends Component
         }
 
         $cart = Cart::where('user_id', $user->id)->first();
-        $cartItems = $cart ? $cart->items()->with('product')->get() : collect();
+        $cartItems = $cart ? $cart->items()->whereHas('product')->with('product')->get() : collect();
+
         
         $total = $cartItems->sum(function($item) {
             return $item->product->price * $item->quantity;

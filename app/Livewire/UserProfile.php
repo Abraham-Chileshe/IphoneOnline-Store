@@ -7,11 +7,14 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
+use Livewire\Attributes\Url;
 use App\Models\Wishlist;
 
 class UserProfile extends Component
 {
+    #[Url(as: 'tab')]
     public $activeTab = 'personal-info';
+
     public $name, $email, $phone, $address, $city, $postal_code;
 
     protected $listeners = [
@@ -22,13 +25,10 @@ class UserProfile extends Component
     ];
 
 
-    public function mount($tab = null)
+    public function mount()
     {
-        if ($tab) {
-            $this->activeTab = $tab;
-        }
-        
         $user = Auth::user();
+
         $this->name = $user->name;
         $this->email = $user->email;
         $this->phone = $user->phone;
@@ -88,9 +88,11 @@ class UserProfile extends Component
         $cartCount = $cart ? $cart->items()->count() : 0;
 
         $wishlistItems = Wishlist::where('user_id', $user->id)
+            ->whereHas('product')
             ->with('product')
             ->latest()
             ->get();
+
 
         return view('livewire.user-profile', [
             'user' => $user,

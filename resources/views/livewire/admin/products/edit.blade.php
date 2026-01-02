@@ -4,11 +4,22 @@
     <div style="background: var(--admin-card); border: 1px solid var(--admin-border); border-radius: 16px; padding: 32px; max-width: 800px;">
         <form wire:submit.prevent="update">
             
-            <!-- Name -->
-            <div style="margin-bottom: 24px;">
-                <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">Product Name</label>
-                <input type="text" wire:model="name" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--admin-border); color: white; padding: 10px 12px; border-radius: 8px;" placeholder="iPhone 15 Pro Max">
-                @error('name') <span style="color: #ff3b30; font-size: 12px;">{{ $message }}</span> @enderror
+            <!-- Name & Status -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px;">
+                <!-- Name -->
+                <div>
+                    <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">Product Name</label>
+                    <input type="text" wire:model="name" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--admin-border); color: white; padding: 10px 12px; border-radius: 8px;" placeholder="iPhone 15 Pro Max">
+                    @error('name') <span style="color: #ff3b30; font-size: 12px;">{{ $message }}</span> @enderror
+                </div>
+                <!-- Status -->
+                <div>
+                    <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">Product Status</label>
+                    <div style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--admin-border); padding: 8px 12px; border-radius: 8px;">
+                        <input type="checkbox" wire:model="is_active" id="is_active" style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--admin-accent);">
+                        <label for="is_active" style="color: white; font-size: 14px; cursor: pointer;">{{ $is_active ? 'Active' : 'Inactive' }}</label>
+                    </div>
+                </div>
             </div>
 
             <!-- Brand & Category -->
@@ -54,6 +65,29 @@
                 <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">Description</label>
                 <textarea wire:model="description" rows="4" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--admin-border); color: white; padding: 10px 12px; border-radius: 8px; resize: vertical;"></textarea>
                  @error('description') <span style="color: #ff3b30; font-size: 12px;">{{ $message }}</span> @enderror
+            </div>
+
+            <!-- Badge Settings -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 24px;">
+                <!-- Badge Text -->
+                <div>
+                    <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">Badge Text (Optional)</label>
+                    <input type="text" wire:model="badge_text" placeholder="e.g. GOOD PRICE, NEW, SALE" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--admin-border); color: white; padding: 10px 12px; border-radius: 8px;">
+                    <small style="color: var(--text-muted); font-size: 11px;">Leave empty for no badge</small>
+                    @error('badge_text') <span style="color: #ff3b30; font-size: 12px;">{{ $message }}</span> @enderror
+                </div>
+                <!-- Badge Type -->
+                <div>
+                    <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">Badge Style</label>
+                    <select wire:model="badge_type" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--admin-border); color: white; padding: 10px 12px; border-radius: 8px;">
+                        <option value="price">Price (Green)</option>
+                        <option value="discount">Discount (Red)</option>
+                        <option value="new">New (Blue)</option>
+                        <option value="sale">Sale (Orange)</option>
+                        <option value="hot">Hot (Pink)</option>
+                    </select>
+                    @error('badge_type') <span style="color: #ff3b30; font-size: 12px;">{{ $message }}</span> @enderror
+                </div>
             </div>
 
             <!-- Image Upload Section -->

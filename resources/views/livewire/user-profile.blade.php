@@ -101,8 +101,9 @@
                                         <div class="order-items-mini">
                                             @foreach($order->items as $item)
                                                 <div class="order-item-row">
-                                                    <span>{{ $item->product->name }} x {{ $item->quantity }}</span>
+                                                    <span>{{ $item->product->name ?? 'Deleted Product' }} x {{ $item->quantity }}</span>
                                                     <span>${{ number_format($item->price * $item->quantity, 2) }}</span>
+
                                                 </div>
                                             @endforeach
                                         </div>
@@ -124,8 +125,11 @@
                     @if($wishlistItems->isNotEmpty())
                         <div class="product-grid" style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
                             @foreach($wishlistItems as $item)
-                                <livewire:product-card :product="$item->product" :key="'wishlist-'.$item->product->id" />
+                                @if($item->product)
+                                    <livewire:product-card :product="$item->product" :key="'wishlist-'.$item->product->id" />
+                                @endif
                             @endforeach
+
                         </div>
                     @else
                         <p class="empty-msg">Your wishlist is empty.</p>

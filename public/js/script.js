@@ -34,15 +34,30 @@ if (themeToggle) {
 }
 
 // Scroll Reveal Animation
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1 });
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+function initReveal() {
+    document.querySelectorAll('.reveal').forEach(el => {
+        revealObserver.observe(el);
+    });
+}
+
+// Initialize on load
+initReveal();
+
+// Re-initialize on Livewire morph
+if (window.Livewire) {
+    window.Livewire.hook('morph.updated', (el, component) => {
+        initReveal();
+    });
+}
+
 
     // Wishlist Toggle
     document.querySelectorAll('.product-card__wishlist').forEach(btn => {

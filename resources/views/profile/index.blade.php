@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container">
-    <livewire:user-profile :tab="$tab ?? null" />
+    <livewire:user-profile />
+
 </div>
 @endsection

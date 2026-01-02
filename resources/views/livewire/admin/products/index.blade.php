@@ -1,7 +1,14 @@
 @section('title', 'Products')
 
 <div>
+    @if (session()->has('success'))
+        <div style="background: rgba(52, 199, 89, 0.1); color: #34c759; padding: 12px 16px; border-radius: 8px; margin-bottom: 24px;">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
+
         <a href="{{ route('admin.products.create') }}" class="btn-primary" style="text-decoration: none; padding: 10px 20px; border-radius: 8px; font-size: 14px;">+ Add Product</a>
     </div>
 

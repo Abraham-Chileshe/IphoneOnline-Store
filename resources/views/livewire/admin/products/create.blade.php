@@ -4,15 +4,26 @@
     <div style="background: var(--admin-card); border: 1px solid var(--admin-border); border-radius: 16px; padding: 32px; max-width: 800px;">
         <form wire:submit.prevent="save">
             
-            <!-- Grid Layout -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+            <!-- Name & Status -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-bottom: 24px;">
                 <!-- Name -->
                 <div>
                     <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">Product Name</label>
                     <input type="text" wire:model="name" style="width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--admin-border); color: white; padding: 10px 12px; border-radius: 8px;">
                     @error('name') <span style="color: #ff3b30; font-size: 12px;">{{ $message }}</span> @enderror
                 </div>
+                <!-- Status -->
+                <div>
+                    <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 8px;">Product Status</label>
+                    <div style="display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--admin-border); padding: 8px 12px; border-radius: 8px;">
+                        <input type="checkbox" wire:model="is_active" id="is_active" style="width: 18px; height: 18px; cursor: pointer; accent-color: var(--admin-accent);">
+                        <label for="is_active" style="color: white; font-size: 14px; cursor: pointer;">{{ $is_active ? 'Active' : 'Inactive' }}</label>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Brand & Category -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
                 <!-- Brand -->
                 <div>
                      <label class="form-label" style="display: block; color: var(--text-muted); font-size: 13px; margin-bottom: 8px;" for="brand">Brand</label>
@@ -26,6 +37,7 @@
                      @error('category') <span style="color: #ff3b30; font-size: 12px;">{{ $message }}</span> @enderror
                 </div>
             </div>
+
 
             <!-- Price & Stock -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">

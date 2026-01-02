@@ -22,8 +22,8 @@
             </div>
         </div>
     </div>
-    </div>
     <div class="header__main">
+
         <div class="container">
             <div class="header__main-inner">
                 <div class="header__logo">

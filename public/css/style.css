@@ -742,11 +742,21 @@ body::after {
 }
 
 .badge {
-    padding: 4px 8px;
+    padding: 4px 10px;
     border-radius: 8px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-transform: uppercase;
+}
+
+.badge img {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
 }
 
 .badge--discount {
@@ -755,15 +765,23 @@ body::after {
 }
 
 .badge--price {
-    background: #8e44ad;
+    background: #555; /* Default to grey if specific not found */
     color: white;
-    display: flex;
-    align-items: center;
-    gap: 4px;
 }
 
-.badge--price img {
-    width: 12px;
+.badge--new {
+    background: #007aff;
+    color: white;
+}
+
+.badge--sale {
+    background: #ff9500;
+    color: white;
+}
+
+.badge--hot {
+    background: #ff2d55;
+    color: white;
 }
 
 .badge--ny {

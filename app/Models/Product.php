@@ -14,6 +14,17 @@ class Product extends Model
         'badge_text', 'badge_type'
     ];
 
+    protected static function booted()
+    {
+        static::deleting(function ($product) {
+            // Delete associated wishlist items
+            $product->wishlists()->delete();
+            // Delete associated cart items
+            $product->cartItems()->delete();
+        });
+    }
+
+
     protected $casts = [
         'price' => 'decimal:2',
         'old_price' => 'decimal:2',
