@@ -173,7 +173,7 @@
         <div class="container">
             <div class="header__main-inner">
                 <div class="header__logo">
-                    <a href="{{ route('home') }}" class="logo-wb">Ab</a>
+                    <a href="{{ route('home') }}" class="logo-wb">Abc</a>
                 </div>
                 <button class="header__burger" id="desktopBurger">
                     <span></span><span></span><span></span>
