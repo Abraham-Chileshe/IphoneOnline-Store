@@ -43,6 +43,35 @@
             </div>
 
             <div style="margin-bottom: 30px; border-bottom: 1px solid var(--admin-border); padding-bottom: 20px; margin-top: 20px;">
+                <h2 style="font-size: 20px; font-weight: 700; color: white; margin-bottom: 8px;">{{ __('Contact Settings') }}</h2>
+                <p style="color: var(--text-muted); font-size: 14px;">{{ __("Manage contact information shown to guest users.") }}</p>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-envelope"></i>
+                        {{ __('Admin Email') }}
+                    </label>
+                    <div style="position: relative;">
+                        <input type="email" wire:model="admin_email" class="admin-input" placeholder="{{ __('e.g. admin@example.com') }}">
+                    </div>
+                    @error('admin_email') <span style="color: #ff3b30; font-size: 12px; margin-top: 8px; display: block;">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" style="display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-phone"></i>
+                        {{ __('Admin Phone') }}
+                    </label>
+                    <div style="position: relative;">
+                        <input type="text" wire:model="admin_phone" class="admin-input" placeholder="{{ __('e.g. +260 977 123456') }}">
+                    </div>
+                    @error('admin_phone') <span style="color: #ff3b30; font-size: 12px; margin-top: 8px; display: block;">{{ $message }}</span> @enderror
+                </div>
+            </div>
+
+            <div style="margin-bottom: 30px; border-bottom: 1px solid var(--admin-border); padding-bottom: 20px; margin-top: 20px;">
                 <h2 style="font-size: 20px; font-weight: 700; color: white; margin-bottom: 8px;">{{ __('Currency Settings') }}</h2>
                 <p style="color: var(--text-muted); font-size: 14px;">{{ __("Manage your store's default exchange rates for localized pricing.") }}</p>
             </div>

@@ -43,6 +43,12 @@
                 <a href="{{ route('admin.orders.index') }}" class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span>{{ __('Orders') }}</span>
+                    @php
+                        $pendingOrdersCount = \App\Models\Order::where('status', 'pending')->count();
+                    @endphp
+                    @if($pendingOrdersCount > 0)
+                        <span class="nav-badge">{{ $pendingOrdersCount }}</span>
+                    @endif
                 </a>
                 
                 <a href="{{ route('admin.cities.index') }}" class="nav-link {{ request()->routeIs('admin.cities.*') ? 'active' : '' }}">

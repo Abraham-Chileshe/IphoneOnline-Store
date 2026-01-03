@@ -24,6 +24,7 @@
     </main>
 
     @include('partials.footer')
+    @include('partials.contact-modal')
 
     <script src="{{ asset('js/script.js') }}"></script>
     @livewireScripts

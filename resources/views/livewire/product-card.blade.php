@@ -73,7 +73,7 @@
             @endauth
 
             @guest
-                <button class="product-card__buy-btn" onclick="event.preventDefault(); window.location.href='{{ route('login') }}'">
+                <button class="product-card__buy-btn" onclick="event.preventDefault(); showContactModal()">
                     {{ __('Contact') }}
                 </button>
             @endguest

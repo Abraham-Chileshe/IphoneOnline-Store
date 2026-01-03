@@ -110,6 +110,24 @@
                                             <div class="order-date">{{ $order->created_at->format('M d, Y') }}</div>
                                             <div class="order-total-amount">{{ __('Total') }}: {{ \App\Models\Product::formatPrice($order->total_amount) }}</div>
                                         </div>
+
+                                        <div class="order-contact-store">
+                                            <div class="contact-store-label">
+                                                <i class="fa-solid fa-headset"></i>
+                                                {{ __('Need help? Contact Store Owner') }}
+                                            </div>
+                                            <div class="contact-store-items">
+                                                <a href="tel:{{ \App\Models\Setting::get('admin_phone') }}" class="contact-store-link">
+                                                    <i class="fa-solid fa-phone"></i>
+                                                    {{ \App\Models\Setting::get('admin_phone', '+260 977 123456') }}
+                                                </a>
+                                                <span class="contact-store-sep">|</span>
+                                                <a href="mailto:{{ \App\Models\Setting::get('admin_email') }}" class="contact-store-link">
+                                                    <i class="fa-solid fa-envelope"></i>
+                                                    {{ \App\Models\Setting::get('admin_email', 'admin@example.com') }}
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -466,6 +484,72 @@
         .order-date {
             font-size: 12px;
             color: var(--text-muted);
+        }
+
+        .order-contact-store {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(203, 17, 171, 0.05);
+            border: 1px dashed var(--primary-purple);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .contact-store-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-purple);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-store-items {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .contact-store-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .contact-store-link:hover {
+            color: var(--primary-purple);
+        }
+
+        .contact-store-link i {
+            color: var(--primary-purple);
+            font-size: 14px;
+        }
+
+        .contact-store-sep {
+            color: var(--border-color);
+            font-weight: 300;
+        }
+
+        @media (max-width: 576px) {
+            .contact-store-sep {
+                display: none;
+            }
+            .contact-store-items {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
     </style>
 </div>

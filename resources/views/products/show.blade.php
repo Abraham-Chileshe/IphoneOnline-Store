@@ -158,9 +158,9 @@
                                 </button>
                             @endif
                         @else
-                            <button class="btn-buy-primary" onclick="window.location.href='{{ route('login') }}'">
-                                <i class="fa-solid fa-right-to-bracket"></i>
-                                {{ __('Sign In to Purchase') }}
+                            <button class="btn-buy-primary" onclick="showContactModal()">
+                                <i class="fa-solid fa-headset"></i>
+                                {{ __('Contact') }}
                             </button>
                         @endauth
                     </div>

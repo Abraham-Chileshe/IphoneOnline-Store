@@ -109,7 +109,7 @@
     "iPhone 15": "iPhone 15",
     "iPhone 14": "iPhone 14",
     "Quick Results": "Быстрые результаты",
-    "Save up to 5% with maximum wallet and WB Club": "Сэкономьте до 5% с кошельком и WB Club",
+    "Save up to 5% with maximum wallet and WB Club": "Мы продаем лучшие продукты Apple по доступным ценам",
     "Ad": "Реклама",
     "No products found": "Товары не найдены",
     "reviews": "отзывов",
@@ -214,5 +214,15 @@
     "Create City": "Создать город",
     "Update City": "Обновить город",
     "Changing the slug may break existing product filters if products were assigned using the old slug.": "Изменение slug может нарушить существующие фильтры товаров, если товары были привязаны с использованием старого slug.",
-    "This is used for filtering products and routing.": "Это используется для фильтрации товаров и маршрутизации."
+    "This is used for filtering products and routing.": "Это используется для фильтрации товаров и маршрутизации.",
+    "Contact Settings": "Настройки контактов",
+    "Manage contact information shown to guest users.": "Управление контактной информацией, отображаемой для гостей.",
+    "Admin Email": "Email администратора",
+    "Admin Phone": "Телефон администратора",
+    "Contact Us": "Свяжитесь с нами",
+    "Get in touch with our team for assistance.": "Свяжитесь с нашей командой для получения помощи.",
+    "Call or WhatsApp": "Звонок или WhatsApp",
+    "Email Address": "Адрес электронной почты",
+    "Need help? Contact Store Owner": "Нужна помощь? Свяжитесь с владельцем магазина",
+    "Close": "Закрыть"
 }

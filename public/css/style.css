@@ -901,22 +901,6 @@ body::after {
     background: #000;
 }
 
-/* Chat Toggle */
-.chat-toggle {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: #a23ff2;
-    width: 60px;
-    height: 60px;
-    border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 5px 20px rgba(162, 63, 242, 0.5);
-    cursor: pointer;
-}
-
 /* Reveal Animation */
 .reveal {
     opacity: 0;

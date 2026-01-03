@@ -40,7 +40,3 @@
     @endauth
 
 </nav>
-
-<div class="chat-toggle">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/chat.png" alt="chat">
-</div>
